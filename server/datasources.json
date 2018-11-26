@@ -1,0 +1,32 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mysqlDS": {
+    "host": "localhost",
+    "port": 8889,
+    "url": "",
+    "database": "cpass-db-schema",
+    "password": "asdASD123!@#",
+    "name": "mysqlDS",
+    "user": "root",
+    "connector": "mysql"
+  },
+  "EmailDS": {
+    "name": "EmailDS",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "smtp",
+        "host": "smtp.gmail.com",
+        "secure": true,
+        "port": 465,
+        "auth": {
+          "user": "YOUR_GMAIL",
+          "pass": "YOUR_GMAIL_PWD"
+        }
+      }
+    ]
+  }
+}

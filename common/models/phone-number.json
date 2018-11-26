@@ -1,0 +1,80 @@
+{
+  "name": "phone_number",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "e164": {
+      "type": "string"
+    },
+    "is_shared": {
+      "type": "number"
+    },
+    "subscriber_id": {
+      "type": "number"
+    },
+    "telecom_id": {
+      "type": "number"
+    },
+    "application_id": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+    "getAvailableNumbers": {
+      "returns": {
+        "arg": "list",
+        "type": "string"
+      },
+      "http": {
+        "verb": "get",
+        "path": "/available-phone-numbers"
+      }
+    },
+    "acquireNumber":{
+      "http": {
+        "verb": "post",
+        "path": "/acquire-number"
+      },
+      "accepts":[
+        {
+          "arg": "email",
+          "type": "string"
+        },
+        {
+          "arg": "number",
+          "type": "string"
+        }
+      ],
+      "returns":{
+        "arg":"status",
+        "type":"string"
+      }
+    },
+    "getMyNumbers":{
+      "http": {
+        "verb": "post",
+        "path": "/get-my-numbers"
+      },
+      "accepts":[
+        {
+          "arg": "email",
+          "type": "string"
+        }
+      ],
+      "returns":{
+        "arg":"list",
+        "type":"string"
+      }
+    }
+  }
+}

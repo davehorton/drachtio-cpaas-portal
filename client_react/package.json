@@ -1,0 +1,38 @@
+{
+  "name": "client_react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "github-login": "^1.0.8",
+    "install": "^0.12.2",
+    "jquery": "^3.3.1",
+    "md5": "^2.2.1",
+    "npm": "^6.4.1",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-github-login": "^1.0.3",
+    "react-google-login-component": "^0.9.3",
+    "react-redux": "^5.1.1",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.1",
+    "superagent": "^4.0.0"
+  },
+  "scripts": {
+    "start": "PORT=3001 react-scripts start",
+    "build": "react-scripts build && cp -r build/* ../client/",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

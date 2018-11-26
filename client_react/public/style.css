@@ -1,0 +1,383 @@
+html, body{
+  height: 100%;
+  background: #eee;
+}
+.bg-color-gray{
+  background: #eee;
+}
+.hidden.menu {
+  display: none;
+}
+
+.ui.menu .item:before {
+  content: none;
+}
+
+.ui.menu:not(.secondary):not(.text):not(.tabular):not(.borderless)>.container>.item:not(.right):not(.borderless):first-child {
+    border-left: 0;
+}
+
+.masthead.segment {
+  min-height: 500px;
+  padding: 1em 0em;
+}
+.masthead .logo.item img {
+  margin-right: 1em;
+}
+.masthead .ui.menu .ui.button {
+  margin-left: 0.5em;
+}
+.masthead h1.ui.header {
+  margin-top: 3em;
+  margin-bottom: 0em;
+  font-size: 4em;
+  font-weight: normal;
+}
+
+h1.header{
+  font-size: 4rem;
+}
+.masthead h2 {
+  font-size: 1.7em;
+  font-weight: normal;
+}
+
+.ui.vertical.stripe {
+  padding: 8em 0em;
+}
+.ui.vertical.stripe h3 {
+  font-size: 2em;
+}
+.ui.vertical.stripe .button + h3,
+.ui.vertical.stripe p + h3 {
+  margin-top: 3em;
+}
+.ui.vertical.stripe .floated.image {
+  clear: both;
+}
+.ui.vertical.stripe p {
+  font-size: 1.33em;
+}
+.ui.vertical.stripe .horizontal.divider {
+  margin: 3em 0em;
+}
+
+.quote.stripe.segment {
+  padding: 0em;
+}
+.quote.stripe.segment .grid .column {
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
+
+.footer.segment {
+  padding: 5em 0em;
+}
+
+.secondary.pointing.menu .toc.item {
+  display: none;
+}
+
+@media only screen and (max-width: 700px) {
+  .ui.fixed.menu {
+    display: none !important;
+  }
+  .secondary.pointing.menu .item,
+  .secondary.pointing.menu .menu {
+    display: none;
+  }
+  .secondary.pointing.menu .toc.item {
+    display: block;
+  }
+  .masthead.segment {
+    min-height: 350px;
+  }
+  .masthead h1.ui.header {
+    font-size: 2em;
+    margin-top: 1.5em;
+  }
+  .masthead h2 {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+  }
+}
+
+.ui.menu:not(.vertical) .item{
+  border-bottom: 2px solid white;
+}
+
+.ui.menu:not(.vertical) .item.active{
+  background: white;
+  border-bottom: 2px solid black;
+}
+
+.login.segment, .signup.segment{
+  padding: 4rem 3rem;
+}
+
+.login.segment h1, .signup.segment h1{
+  margin-bottom : 2rem;
+}
+
+.btn-continue-with-google,.btn-continue-with-github{
+  width: 100%;
+  padding: 1rem 0;
+  background : #ccc;
+  color: black;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  display: block;
+  border: 0;
+}
+
+.btn-continue-with-google:hover{
+  transition: .7s;
+  background : #d84343;
+  color: white;
+}
+
+.btn-continue-with-github:hover{
+  transition: .7s;
+  background : #222;
+  color: white;
+}
+
+.eye{
+  cursor: pointer;
+}
+
+.ui.menu.sidebar-left{
+  padding: 3rem 0;
+  height: 100%;
+  border-radius: 0;
+  width: 100%
+}
+
+.ui.vertical.menu .item:before{
+  content: none;
+}
+
+.ui.vertical.menu .item{
+  margin-left: 2rem;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.ui.vertical.menu .item.active{
+  background: #ddd;
+  border-right: 4px solid #222;
+  box-shadow: 0 0 3px #222;
+  font-weight: bold;
+  border-radius: 0;
+}
+
+.ui.vertical.menu .item a{
+  color: black;
+  width: 100%;
+}
+
+.ui.vertical.menu>.active.item:first-child
+{
+  border-radius: 0;
+}
+.ui.vertical.menu .item:hover{
+  transition: .7s;
+  background: #ccc;
+  box-shadow: 0 0 3px #222;
+}
+
+.dashboard{
+  padding: 3rem 3rem;
+}
+
+.dashboard .ui.button{
+  padding: 1rem 5rem;
+}
+
+.dashboard .ui.segment{
+  /* margin-right: 3rem; */
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-bottom: 5rem;
+}
+
+.dashboard .wizard-step .ui.segment{
+  padding: 3rem 2rem;
+}
+
+.dashboard .thumbnails .ui.segment{
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+.dashboard .thumbnails .ui.segment p{
+  font-size: 16px;
+}
+
+@keyframes fade-out{
+  0%{
+    opacity: 1;
+    /* display: block; */
+  }
+  100%{
+    opacity: 0;
+    display: none;
+    transform: scaleY(.01);
+    transform-origin: top;
+  }
+}
+.custom-anim-move-to-account{
+  /* animation: fade-out 2s forwards; */
+}
+.dashboard .wizard-step .ui.segment .btn-custom{
+  text-align: center;
+}
+
+.dashboard .wizard-step .ui.segment .btn-custom h3{
+  background: #ddd;
+  line-height: 6rem;
+}
+
+.link.back{
+  cursor: pointer;
+}
+
+.link.back:hover{
+  transition: .7s;
+  color: #666;
+}
+
+.account{
+  padding: 3rem 3rem;
+}
+
+.account .ui.button{
+  padding: 1rem 5rem;
+}
+
+.account .ui.segment{
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+.account .ui.segment p{
+  font-size: 16px;
+}
+
+.account .word.minute{
+
+}
+
+.account .word.minute span{
+  font-size: 32px;
+}
+
+.phone-num{
+  padding: 3rem 3rem;
+}
+
+.phone-num .ui.segment{
+  padding: 0;
+}
+.phone-num .ui.segment p, .phone-num .ui.segment label{
+  font-size: 16px;
+}
+
+.phone-num .availables{
+
+}
+
+.phone-num .availables .phone-item{
+  padding: 1rem 2rem;
+  border-top: 2px solid #ddd;
+}
+
+.phone-num .availables .phone-item:hover{
+  transition: .7s;
+  background-color: #eee;
+}
+.phone-num .availables .phone-item:not(:hover) button{
+  visibility: hidden;
+}
+
+.phone-num .number-list .number-list-item{
+  border-top: 2px solid #ddd;
+  padding: 1rem
+}
+@keyframes zoom{
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.3);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+.custom-icon.check.large{
+  animation-name: zoom;
+  animation-duration: .8s;
+  animation-delay: 1s;
+}
+.custom-icon.check.large span{
+  line-height: 70px;
+  position: relative;
+  padding: 1rem;
+}
+
+@keyframes checkLeft{
+  0%{
+    width: 0;
+  }
+  100%{
+    width: 50px;
+  }
+}
+.custom-icon.check.large span::before{
+  position: absolute;
+  content: '';
+  width: 50px;
+  height: 5px;
+  background: gray;
+  transform: rotateZ(45deg);
+  transform-origin: left;
+  top: 3px;
+  left: -34px;
+  animation-name: checkLeft;
+  animation-duration: .33s;
+}
+
+@keyframes checkRight{
+  0%{
+    width: 0;
+  }
+  33%{
+    width:0;
+  }
+  100%{
+    width: 90px;
+  }
+}
+.custom-icon.check.large span::after{
+  position: absolute;
+  content: '';
+  width: 90px;
+  height: 5px;
+  background: gray;
+  transform: rotateZ(-45deg);
+  transform-origin: left;
+  top: 38px;
+  left: -2px;
+  animation-name: checkRight;
+  animation-duration: 1s;
+}
+
+.applications{
+  padding: 3rem;
+}
+
+.ui.modal>.content{
+  padding: 2rem 5rem;
+}

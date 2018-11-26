@@ -1,0 +1,181 @@
+{
+  "name": "subscriber",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "pwd": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "account_balance": {
+      "type": "number"
+    },
+    "product_offering_id": {
+      "type": "number"
+    },
+    "demo_code": {
+      "type": "string"
+    },
+    "my_number": {
+      "type": "string"
+    },
+    "third_party_connect": {
+      "type": "string"
+    },
+    "confirm_url": {
+      "type": "string"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+    "login": {
+      "accepts": [
+        {
+          "arg": "email",
+          "type": "string"
+        },
+        {
+          "arg": "pwd",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "arg": "status",
+        "type": "string"
+      },
+      "http": {
+        "verb": "get",
+        "path": "/login"
+      }
+    },
+    "signup": {
+      "accepts": [
+        {
+          "arg": "email",
+          "type": "string"
+        },
+        {
+          "arg": "pwd",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "arg": "status",
+        "type": "string"
+      },
+      "http": {
+        "path": "/signup",
+        "verb": "post"
+      }
+    },
+    "verifyEmail": {
+      "accepts": [
+        {
+          "arg": "url",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "arg": "status",
+        "type": "string"
+      },
+      "http": {
+        "path": "/verify-url",
+        "verb": "post"
+      }
+    },
+    "getMyInfo": {
+      "accepts": [
+        {
+          "arg": "email",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "arg": "info",
+        "type": "string"
+      },
+      "http": {
+        "path": "/get-my-info",
+        "verb": "post"
+      }
+    },
+    "addMyNumber" : {
+      "accepts" : [
+        {
+          "arg": "email",
+          "type": "string"
+        },
+        {
+          "arg": "number",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "arg": "status",
+        "type": "string"
+      },
+      "http": {
+        "path": "/add-my-number",
+        "verb": "post"
+      }
+    },
+    "getMyNumber" : {
+      "accepts" : [
+        {
+          "arg": "email",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "arg": "number",
+        "type": "string"
+      },
+      "http": {
+        "path": "/get-my-number",
+        "verb": "post"
+      }
+    },
+    "signupWithThirdParty": {
+      "accepts": [
+        {
+          "arg": "email",
+          "type": "string"
+        },
+        {
+          "arg": "name",
+          "type": "string"
+        },
+        {
+          "arg": "social",
+          "type": "string"
+        }
+      ],
+      "returns": {
+        "arg": "status",
+        "type": "string"
+      },
+      "http": {
+        "path": "/signup_with_third_party",
+        "verb": "post"
+      }
+    }
+  }
+}
