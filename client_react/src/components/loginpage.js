@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import NormalHeader from './headers/normal_header';
 import { Link } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login-component';
+import {subscriberApiUrl, gitOauthClientID, googleOauthID} from '../constant';
 
 import axios from 'axios';
 
-const serverApiUrl = "http://localhost:3000/api/subscribers/";
 
 class LogInPage extends Component{
     constructor(){
@@ -27,9 +27,7 @@ class LogInPage extends Component{
 
     tryToLogIn(){
         console.log('try to log in');
-        let serverApiUrl = "http://localhost:3000/api/subscribers/login";
-
-        console.log(serverApiUrl);
+        let serverApiUrl = subscriberApiUrl+"login";
         
         let loginData = {
             email : this.state.email,
@@ -48,16 +46,6 @@ class LogInPage extends Component{
                     console.log('log in failed');
                 }
             })
-        // axios.request({
-        //     method : 'get',
-        //     url : serverApiUrl,
-        //     data : loginData
-        // }).then(response => {
-        //     console.log('res data is ',response.data);
-        //     // this.props.history.push('/confirm');
-        // }).catch(err => {
-        //     console.log(err);
-        // })
     }
 
     signWithGoogle(googleUser){
@@ -76,7 +64,7 @@ class LogInPage extends Component{
             };
             axios.request({
                 method : 'post',
-                url : serverApiUrl+'signup_with_third_party',
+                url : subscriberApiUrl+'signup_with_third_party',
                 data : data
             }).then(response => {
                 console.log('data is',response.data);
@@ -112,14 +100,14 @@ class LogInPage extends Component{
                         
                         <h1>Login</h1>
                         
-                        <GoogleLogin socialId="413699823086-big3pq2upff6u2da4osv2vn10a7chjgf.apps.googleusercontent.com"
+                        <GoogleLogin socialId={googleOauthID}
                             className={"btn-continue-with-google"}
                             scope={"profile email"}
                             fetchBasicProfile={false}
                             responseHandler={this.signWithGoogle}
                             buttonText="Continue With Google"><i className={'google icon'}/></GoogleLogin>
 
-                        <a href="https://github.com/login/oauth/authorize?client_id=Iv1.3e8863146ab70d9b" className={'btn-continue-with-github'}><i className={'github icon'}></i> Continue with Github</a>
+                        <a href={"https://github.com/login/oauth/authorize?client_id="+gitOauthClientID} className={'btn-continue-with-github'}><i className={'github icon'}></i> Continue with Github</a>
                         <br/>
                         <div className={'ui horizontal divider'}>OR</div>
                         <br/>

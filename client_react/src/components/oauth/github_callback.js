@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import {subscriberApiUrl, gitOauthClientID, gitOauthClientSecret} from '../../constant';
 
 const request = require('superagent');
-
-const serverApiUrl = "http://localhost:3000/api/subscribers/";
 
 class GithubCallBack extends Component{
     constructor(){
@@ -19,9 +18,6 @@ class GithubCallBack extends Component{
         data = data.split('=')[1];
         console.log('code is ',data);
 
-        let clientID = 'Iv1.3e8863146ab70d9b';
-        let clientSecret = '8e296cf4a334f7462186b1b1ad3b88ac98aef3b1';
-
         var req = new XMLHttpRequest();
         req.open('POST',
         'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',
@@ -29,8 +25,8 @@ class GithubCallBack extends Component{
         req.setRequestHeader('Accept', 'application/json');
         req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         req.send('code=' + data +
-            '&client_id=' + clientID +
-            '&client_secret='+clientSecret);
+            '&client_id=' + gitOauthClientID +
+            '&client_secret='+gitOauthClientSecret);
 
         req.onreadystatechange = function() {
             if(this.readyState === 4 && this.status === 200)
@@ -74,7 +70,7 @@ class GithubCallBack extends Component{
         res.social = 'github';
         axios.request({
             method : 'post',
-            url : serverApiUrl+'signup_with_third_party',
+            url : subscriberApiUrl+'signup_with_third_party',
             data : res
         }).then(response => {
             console.log('data is',response);

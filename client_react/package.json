@@ -5,6 +5,8 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
+    "dotenv": "^6.1.0",
+    "fs": "0.0.1-security",
     "github-login": "^1.0.8",
     "install": "^0.12.2",
     "jquery": "^3.3.1",

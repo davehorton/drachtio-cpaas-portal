@@ -3,10 +3,9 @@ import NormalHeader from './headers/normal_header';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login-component';
+import {subscriberApiUrl, gitOauthClientID, googleOauthID} from '../constant';
 
 var bcrypt = require('bcryptjs');
-
-const serverApiUrl = "http://localhost:3000/api/subscribers/";
 
 class SignUpPage extends Component{
     constructor(){
@@ -31,7 +30,7 @@ class SignUpPage extends Component{
         console.log(this.state.email,this.state.pwd);
         
 
-        console.log(serverApiUrl);
+        console.log(subscriberApiUrl);
  
         let signData = {
             email : this.state.email,
@@ -41,7 +40,7 @@ class SignUpPage extends Component{
         console.log(signData);
         axios.request({
             method : 'post',
-            url : serverApiUrl+'signup',
+            url : subscriberApiUrl+'signup',
             data : signData
         }).then(response => {
             console.log(response.data);
@@ -67,7 +66,7 @@ class SignUpPage extends Component{
             };
             axios.request({
                 method : 'post',
-                url : serverApiUrl+'signup_with_third_party',
+                url : subscriberApiUrl+'signup_with_third_party',
                 data : data
             }).then(response => {
                 console.log('data is',response.data);
@@ -98,14 +97,14 @@ class SignUpPage extends Component{
                 <div className={'ui text container'} style={{marginTop:"5rem"}}>
                     <div className={'ui stripe segment signup center aligned'}>
                         <h1>Sign up</h1>
-                        <GoogleLogin socialId="413699823086-big3pq2upff6u2da4osv2vn10a7chjgf.apps.googleusercontent.com"
+                        <GoogleLogin socialId={googleOauthID}
                             className={"btn-continue-with-google"}
                             scope={"profile email"}
                             fetchBasicProfile={false}
                             responseHandler={this.signWithGoogle}
                             buttonText="Continue With Google"><i className={'google icon'}/></GoogleLogin>
 
-                        <a href="https://github.com/login/oauth/authorize?client_id=Iv1.3e8863146ab70d9b" className={'btn-continue-with-github'}><i className={'github icon'}></i> Continue with Github</a>
+                        <a href={"https://github.com/login/oauth/authorize?client_id="+gitOauthClientID} className={'btn-continue-with-github'}><i className={'github icon'}></i> Continue with Github</a>
                         <br/>
                         <div className={'ui horizontal divider'}>OR</div>
                         <br/>
