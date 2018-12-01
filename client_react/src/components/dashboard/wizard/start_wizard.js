@@ -7,7 +7,7 @@ class StartWizard extends Component{
     componentDidMount(){
         axios.request({
             method : 'post',
-            url : serverApiUrl + 'get-my-number',
+            url : serverApiUrl + 'get-my-number'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
             data : {
                 email : sessionStorage.getItem('cpaas-email')
             }

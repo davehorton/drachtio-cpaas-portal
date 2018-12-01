@@ -29,8 +29,9 @@ class WizardAcquireNumber extends Component{
         });
         axios.request({
             method : 'post',
-            url : serverApiUrl+'acquire-number',
+            url : serverApiUrl+'acquire-number'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
             data : {
+                access_token : sessionStorage.getItem('cpaas-access-token'),
                 email: sessionStorage.getItem('cpaas-email'),
                 number : num.number
             }
@@ -41,7 +42,7 @@ class WizardAcquireNumber extends Component{
     }
 
     getAvailableNumbers(){
-        axios.get(serverApiUrl+'available-phone-numbers')
+        axios.get(serverApiUrl+'available-phone-numbers'+'?access_token='+sessionStorage.getItem('cpaas-access-token'))
             .then(response=>{
                 let list = response.data.list;
                 if(list === undefined || list.length === 0){

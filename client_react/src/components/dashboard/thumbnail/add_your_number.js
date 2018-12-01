@@ -25,7 +25,7 @@ class AddYourNumber extends Component{
         });
         axios.request({
             method : 'post',
-            url : serverApiUrl + 'add-my-number',
+            url : serverApiUrl + 'add-my-number'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
             data : {
                 email : sessionStorage.getItem('cpaas-email'),
                 number : this.state.phoneNum
@@ -38,7 +38,7 @@ class AddYourNumber extends Component{
     checkMyNumber(){
         axios.request({
             method : 'post',
-            url : serverApiUrl + 'get-my-number',
+            url : serverApiUrl + 'get-my-number'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
             data : {
                 email : sessionStorage.getItem('cpaas-email'),
                 number : this.state.phoneNum

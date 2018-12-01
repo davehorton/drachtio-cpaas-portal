@@ -43,7 +43,42 @@
   },
   "validations": [],
   "relations": {},
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "login"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "signup"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "verifyEmail"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "signupWithThirdParty"
+    }
+  ],
   "methods": {
     "login": {
       "accepts": [
@@ -117,8 +152,8 @@
         "verb": "post"
       }
     },
-    "addMyNumber" : {
-      "accepts" : [
+    "addMyNumber": {
+      "accepts": [
         {
           "arg": "email",
           "type": "string"
@@ -137,8 +172,8 @@
         "verb": "post"
       }
     },
-    "getMyNumber" : {
-      "accepts" : [
+    "getMyNumber": {
+      "accepts": [
         {
           "arg": "email",
           "type": "string"

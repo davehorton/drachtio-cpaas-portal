@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {subscriberApiUrl, gitOauthClientID, gitOauthClientSecret} from '../../constant';
+import {serverApiUrl,subscriberApiUrl, gitOauthClientID, gitOauthClientSecret} from '../../constant';
 
 const request = require('superagent');
 
@@ -9,6 +9,51 @@ class GithubCallBack extends Component{
         super();
         this.signupWithGithub = this.signupWithGithub.bind(this);
     }
+
+    getAccessToken = (email) =>{
+        let accessToken;
+        console.log('try to get access token by ',email);
+        axios.request({
+            method : "post",
+            url : serverApiUrl+"/users",
+            data : {
+                email : email,
+                password : "password"
+            }
+        }).then(res => {
+            console.log(res)
+            axios.request({
+                method : "post",
+                url : serverApiUrl + "/users/login",
+                data : {
+                    email : email,
+                    password : "password"
+                }
+            }).then(res => {
+                console.log('1user log in res', res);
+                accessToken = res.data.id;
+                sessionStorage.setItem('cpaas-access-token',accessToken);
+                console.log('my token is',accessToken);
+            })
+        }).catch(err => {
+            console.log(err);
+            axios.request({
+                method : "post",
+                url : serverApiUrl + "/users/login",
+                data : {
+                    email : email,
+                    password : "password"
+                }
+            }).then(res => {
+                console.log('2user log in res', res);
+                accessToken = res.data.id;
+                sessionStorage.setItem('cpaas-access-token',accessToken);
+                console.log('my token is',accessToken);
+            })
+        })
+        
+    }
+
     componentDidMount(){
         let data = window.location.href;
         let _this = this;
@@ -79,7 +124,10 @@ class GithubCallBack extends Component{
             {
                 sessionStorage.setItem('cpaas-email',res.email);
                 sessionStorage.setItem('cpaas-name',res.name);
-                this.props.history.push('/dashboard');
+                this.getAccessToken(res.email);
+                setTimeout(() => {
+                    this.props.history.push('/dashboard');
+                }, 1000);
             }
         }).catch(err => {
             console.log(err);

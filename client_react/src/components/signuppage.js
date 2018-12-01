@@ -3,7 +3,7 @@ import NormalHeader from './headers/normal_header';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login-component';
-import {subscriberApiUrl, gitOauthClientID, googleOauthID} from '../constant';
+import {serverApiUrl,subscriberApiUrl, gitOauthClientID, googleOauthID} from '../constant';
 
 var bcrypt = require('bcryptjs');
 
@@ -20,6 +20,50 @@ class SignUpPage extends Component{
         this.signWithGoogle = this.signWithGoogle.bind(this);
     }
     
+    getAccessToken = (email) =>{
+        let accessToken;
+        console.log('try to get access token by ',email);
+        axios.request({
+            method : "post",
+            url : serverApiUrl+"/users",
+            data : {
+                email : email,
+                password : "password"
+            }
+        }).then(res => {
+            console.log(res)
+            axios.request({
+                method : "post",
+                url : serverApiUrl + "/users/login",
+                data : {
+                    email : email,
+                    password : "password"
+                }
+            }).then(res => {
+                console.log('1user log in res', res);
+                accessToken = res.data.id;
+                sessionStorage.setItem('cpaas-access-token',accessToken);
+                console.log('my token is',accessToken);
+            })
+        }).catch(err => {
+            console.log(err);
+            axios.request({
+                method : "post",
+                url : serverApiUrl + "/users/login",
+                data : {
+                    email : email,
+                    password : "password"
+                }
+            }).then(res => {
+                console.log('2user log in res', res);
+                accessToken = res.data.id;
+                sessionStorage.setItem('cpaas-access-token',accessToken);
+                console.log('my token is',accessToken);
+            })
+        })
+        
+    }
+
     changePwdVisible(){
         if(this.state.pwdVisible === false) this.setState({pwdVisible:true});
         else this.setState({pwdVisible:false});
@@ -72,7 +116,12 @@ class SignUpPage extends Component{
                 console.log('data is',response.data);
                 if(response.data.status === "successed" || response.data.status === "exist")
                 {
-                    _this.props.history.push('/confirm');
+                    sessionStorage.setItem('cpaas-email',email);
+                    console.log(_this)
+                    this.getAccessToken(email);
+                    setTimeout(() => {
+                        _this.props.history.push('/dashboard');
+                    }, 1000);
                 }
             }).catch(err => {
                 console.log(err);

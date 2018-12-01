@@ -23,7 +23,7 @@ class AccountInfo extends Component{
     getAccountInfo(){
         axios.request({
             method : 'post',
-            url : serverApiUrl+'get-my-info',
+            url : serverApiUrl+'get-my-info'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
             data : {
                 email : sessionStorage.getItem('cpaas-email')
             }

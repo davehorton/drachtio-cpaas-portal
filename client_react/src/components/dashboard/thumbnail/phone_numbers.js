@@ -16,13 +16,16 @@ class PhoneNumbers extends Component{
     }
 
     getMyNumbers(){
+        console.log('dashboard numbers get number');
+        console.log('my token is ',sessionStorage.getItem('cpaas-access-token'))
         axios.request({
             method : 'post',
-            url : serverApiUrl+'get-my-numbers',
+            url : serverApiUrl+'get-my-numbers'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
             data : {
                 email : sessionStorage.getItem('cpaas-email')
             }
         }).then(response => {
+            console.log('get numbers successed');
             let data = response.data.list;
             console.log('number list ',data);
             if(data && data.length !== 0)

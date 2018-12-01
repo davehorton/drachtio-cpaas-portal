@@ -2,10 +2,9 @@ import React, {Component} from 'react';
 import NormalHeader from './headers/normal_header';
 import { Link } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login-component';
-import {subscriberApiUrl, gitOauthClientID, googleOauthID} from '../constant';
+import {serverApiUrl,subscriberApiUrl, gitOauthClientID, googleOauthID} from '../constant';
 
 import axios from 'axios';
-
 
 class LogInPage extends Component{
     constructor(){
@@ -20,12 +19,57 @@ class LogInPage extends Component{
         this.signWithGoogle = this.signWithGoogle.bind(this);
     }
     
+    getAccessToken = (email) =>{
+        let accessToken;
+        console.log('try to get access token by ',email);
+        axios.request({
+            method : "post",
+            url : serverApiUrl+"/users",
+            data : {
+                email : email,
+                password : "password"
+            }
+        }).then(res => {
+            console.log(res)
+            axios.request({
+                method : "post",
+                url : serverApiUrl + "/users/login",
+                data : {
+                    email : email,
+                    password : "password"
+                }
+            }).then(res => {
+                console.log('1user log in res', res);
+                accessToken = res.data.id;
+                sessionStorage.setItem('cpaas-access-token',accessToken);
+                console.log('my token is',accessToken);
+            })
+        }).catch(err => {
+            console.log(err);
+            axios.request({
+                method : "post",
+                url : serverApiUrl + "/users/login",
+                data : {
+                    email : email,
+                    password : "password"
+                }
+            }).then(res => {
+                console.log('2user log in res', res);
+                accessToken = res.data.id;
+                sessionStorage.setItem('cpaas-access-token',accessToken);
+                console.log('my token is',accessToken);
+            })
+        })
+        
+    }
+
     changePwdVisible(){
         if(this.state.pwdVisible === false) this.setState({pwdVisible:true});
         else this.setState({pwdVisible:false});
     }
 
     tryToLogIn(){
+        
         console.log('try to log in');
         let serverApiUrl = subscriberApiUrl+"login";
         
@@ -40,7 +84,11 @@ class LogInPage extends Component{
                 if(response.data.status === 'successed'){
                     console.log('log in successed');
                     sessionStorage.setItem('cpaas-email',loginData.email);
-                    this.props.history.push('/dashboard');
+                    this.getAccessToken(loginData.email);
+                    setTimeout(()=>{
+                        this.props.history.push('/dashboard');
+                    },1000);
+                    
                 }
                 else{
                     console.log('log in failed');
@@ -72,7 +120,10 @@ class LogInPage extends Component{
                 {
                     sessionStorage.setItem('cpaas-email',email);
                     console.log(_this)
-                    _this.props.history.push('/dashboard');
+                    this.getAccessToken(email);
+                    setTimeout(() => {
+                        _this.props.history.push('/dashboard');
+                    }, 1000);
                 }
             }).catch(err => {
                 console.log(err);

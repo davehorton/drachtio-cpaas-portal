@@ -35,9 +35,6 @@
     "dataSource": "db",
     "public": false
   },
-  "Message": {
-    "dataSource": null
-  },
   "subscriber": {
     "dataSource": "mysqlDS",
     "public": true

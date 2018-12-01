@@ -3,8 +3,8 @@ export const subscriberApiUrl = "http://localhost:3000/api/subscribers/";
 
 /////////////////////////////////////////////////////
 //github Oauth
-export const gitOauthClientID = 'Iv1.3e8863146ab70d9b';
-export const gitOauthClientSecret = '8e296cf4a334f7462186b1b1ad3b88ac98aef3b1';
+export const gitOauthClientID = 'Iv1.d3895a5267cf71ff';
+export const gitOauthClientSecret = '7933302585a571bec15e8cd7efdaaa2162b1e665';
 
 
 /////////////////////////////////////////////////////

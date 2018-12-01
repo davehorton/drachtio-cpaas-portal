@@ -14,7 +14,7 @@ class WizardStepFirst extends Component{
     addMyNumber(){
         axios.request({
             method : 'post',
-            url : serverApiUrl + 'add-my-number',
+            url : serverApiUrl + 'add-my-number'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
             data : {
                 email : sessionStorage.getItem('cpaas-email'),
                 number : this.state.phoneNum

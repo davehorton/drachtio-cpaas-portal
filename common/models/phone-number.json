@@ -28,7 +28,14 @@
   },
   "validations": [],
   "relations": {},
-  "acls": [],
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    }
+  ],
   "methods": {
     "getAvailableNumbers": {
       "returns": {
@@ -40,12 +47,8 @@
         "path": "/available-phone-numbers"
       }
     },
-    "acquireNumber":{
-      "http": {
-        "verb": "post",
-        "path": "/acquire-number"
-      },
-      "accepts":[
+    "acquireNumber": {
+      "accepts": [
         {
           "arg": "email",
           "type": "string"
@@ -55,25 +58,29 @@
           "type": "string"
         }
       ],
-      "returns":{
-        "arg":"status",
-        "type":"string"
-      }
-    },
-    "getMyNumbers":{
+      "returns": {
+        "arg": "status",
+        "type": "string"
+      },
       "http": {
         "verb": "post",
-        "path": "/get-my-numbers"
-      },
-      "accepts":[
+        "path": "/acquire-number"
+      }
+    },
+    "getMyNumbers": {
+      "accepts": [
         {
           "arg": "email",
           "type": "string"
         }
       ],
-      "returns":{
-        "arg":"list",
-        "type":"string"
+      "returns": {
+        "arg": "list",
+        "type": "string"
+      },
+      "http": {
+        "verb": "post",
+        "path": "/get-my-numbers"
       }
     }
   }
