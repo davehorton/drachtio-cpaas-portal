@@ -17,10 +17,13 @@ class PhoneNumbers extends Component{
 
     getMyNumbers(){
         console.log('dashboard numbers get number');
-        console.log('my token is ',sessionStorage.getItem('cpaas-access-token'))
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
         axios.request({
             method : 'post',
-            url : serverApiUrl+'get-my-numbers'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
+            headers : {
+                authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+            },
+            url : serverApiUrl+'get-my-numbers',
             data : {
                 email : sessionStorage.getItem('cpaas-email')
             }
@@ -34,6 +37,8 @@ class PhoneNumbers extends Component{
                     numberList : data
                 })
             }
+        }).catch(err => {
+            console.log(err);
         })
     }
 

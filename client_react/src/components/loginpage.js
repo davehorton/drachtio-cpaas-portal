@@ -18,50 +18,6 @@ class LogInPage extends Component{
         this.tryToLogIn = this.tryToLogIn.bind(this);
         this.signWithGoogle = this.signWithGoogle.bind(this);
     }
-    
-    getAccessToken = (email) =>{
-        let accessToken;
-        console.log('try to get access token by ',email);
-        axios.request({
-            method : "post",
-            url : serverApiUrl+"/users",
-            data : {
-                email : email,
-                password : "password"
-            }
-        }).then(res => {
-            console.log(res)
-            axios.request({
-                method : "post",
-                url : serverApiUrl + "/users/login",
-                data : {
-                    email : email,
-                    password : "password"
-                }
-            }).then(res => {
-                console.log('1user log in res', res);
-                accessToken = res.data.id;
-                sessionStorage.setItem('cpaas-access-token',accessToken);
-                console.log('my token is',accessToken);
-            })
-        }).catch(err => {
-            console.log(err);
-            axios.request({
-                method : "post",
-                url : serverApiUrl + "/users/login",
-                data : {
-                    email : email,
-                    password : "password"
-                }
-            }).then(res => {
-                console.log('2user log in res', res);
-                accessToken = res.data.id;
-                sessionStorage.setItem('cpaas-access-token',accessToken);
-                console.log('my token is',accessToken);
-            })
-        })
-        
-    }
 
     changePwdVisible(){
         if(this.state.pwdVisible === false) this.setState({pwdVisible:true});
@@ -79,12 +35,16 @@ class LogInPage extends Component{
         }
         console.log('log in data is ',loginData);
         // Axios
-        axios.get(serverApiUrl+'?email='+loginData.email+'&pwd='+loginData.pwd)
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
+        axios.get(serverApiUrl+'?email='+loginData.email+'&pwd='+loginData.pwd,{
+                headers : {
+                    authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+                },
+            })
             .then(response=>{
                 if(response.data.status === 'successed'){
                     console.log('log in successed');
                     sessionStorage.setItem('cpaas-email',loginData.email);
-                    this.getAccessToken(loginData.email);
                     setTimeout(()=>{
                         this.props.history.push('/dashboard');
                     },1000);
@@ -110,8 +70,12 @@ class LogInPage extends Component{
                 email : email,
                 social : "google"
             };
+            if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
             axios.request({
                 method : 'post',
+                headers : {
+                    authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+                },
                 url : subscriberApiUrl+'signup_with_third_party',
                 data : data
             }).then(response => {
@@ -120,7 +84,6 @@ class LogInPage extends Component{
                 {
                     sessionStorage.setItem('cpaas-email',email);
                     console.log(_this)
-                    this.getAccessToken(email);
                     setTimeout(() => {
                         _this.props.history.push('/dashboard');
                     }, 1000);

@@ -5,9 +5,13 @@ const serverApiUrl = "http://localhost:3000/api/subscribers/";
 
 class StartWizard extends Component{
     componentDidMount(){
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
         axios.request({
             method : 'post',
-            url : serverApiUrl + 'get-my-number'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
+            headers : {
+                authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+            },
+            url : serverApiUrl + 'get-my-number',
             data : {
                 email : sessionStorage.getItem('cpaas-email')
             }
@@ -15,6 +19,8 @@ class StartWizard extends Component{
             let number = response.data.number;
             if(number !== "")
                 this.props.onSkip();
+        }).catch(err => {
+            console.log(err);
         })
     }
     render(){

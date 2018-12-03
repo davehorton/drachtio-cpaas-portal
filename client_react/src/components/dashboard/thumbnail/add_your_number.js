@@ -23,22 +23,32 @@ class AddYourNumber extends Component{
         this.setState({
             saved : true 
         });
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
         axios.request({
             method : 'post',
-            url : serverApiUrl + 'add-my-number'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
+            headers : {
+                authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+            },
+            url : serverApiUrl + 'add-my-number',
             data : {
                 email : sessionStorage.getItem('cpaas-email'),
                 number : this.state.phoneNum
             }
         }).then(response => {
             console.log(response.data);
+        }).catch(err =>{
+            console.log(err);
         })
     }
 
     checkMyNumber(){
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
         axios.request({
             method : 'post',
-            url : serverApiUrl + 'get-my-number'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
+            headers : {
+                authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+            },
+            url : serverApiUrl + 'get-my-number',
             data : {
                 email : sessionStorage.getItem('cpaas-email'),
                 number : this.state.phoneNum
@@ -47,6 +57,8 @@ class AddYourNumber extends Component{
             this.setState({
                 myNumber : response.data.number
             })
+        }).catch(err => {
+            console.log(err);
         })
     }
 

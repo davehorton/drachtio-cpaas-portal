@@ -12,15 +12,21 @@ class WizardStepFirst extends Component{
         this.addMyNumber = this.addMyNumber.bind(this);
     }
     addMyNumber(){
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
         axios.request({
             method : 'post',
-            url : serverApiUrl + 'add-my-number'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
+            headers : {
+                authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+            },
+            url : serverApiUrl + 'add-my-number',
             data : {
                 email : sessionStorage.getItem('cpaas-email'),
                 number : this.state.phoneNum
             }
         }).then(response => {
             console.log(response.data);
+        }).catch(err => {
+            console.log(err);
         })
         this.props.onForward();
     }

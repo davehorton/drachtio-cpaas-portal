@@ -21,9 +21,13 @@ class AccountInfo extends Component{
     }
 
     getAccountInfo(){
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
         axios.request({
             method : 'post',
-            url : serverApiUrl+'get-my-info'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
+            headers : {
+                authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+            },
+            url : serverApiUrl+'get-my-info',
             data : {
                 email : sessionStorage.getItem('cpaas-email')
             }
@@ -34,6 +38,9 @@ class AccountInfo extends Component{
                 info : data
             })
             console.log('account info ',this.state.info)
+        })
+        .catch(err =>{
+            console.log(err);
         })
     }
 

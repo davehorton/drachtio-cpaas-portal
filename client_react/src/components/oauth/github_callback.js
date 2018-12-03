@@ -10,50 +10,6 @@ class GithubCallBack extends Component{
         this.signupWithGithub = this.signupWithGithub.bind(this);
     }
 
-    getAccessToken = (email) =>{
-        let accessToken;
-        console.log('try to get access token by ',email);
-        axios.request({
-            method : "post",
-            url : serverApiUrl+"/users",
-            data : {
-                email : email,
-                password : "password"
-            }
-        }).then(res => {
-            console.log(res)
-            axios.request({
-                method : "post",
-                url : serverApiUrl + "/users/login",
-                data : {
-                    email : email,
-                    password : "password"
-                }
-            }).then(res => {
-                console.log('1user log in res', res);
-                accessToken = res.data.id;
-                sessionStorage.setItem('cpaas-access-token',accessToken);
-                console.log('my token is',accessToken);
-            })
-        }).catch(err => {
-            console.log(err);
-            axios.request({
-                method : "post",
-                url : serverApiUrl + "/users/login",
-                data : {
-                    email : email,
-                    password : "password"
-                }
-            }).then(res => {
-                console.log('2user log in res', res);
-                accessToken = res.data.id;
-                sessionStorage.setItem('cpaas-access-token',accessToken);
-                console.log('my token is',accessToken);
-            })
-        })
-        
-    }
-
     componentDidMount(){
         let data = window.location.href;
         let _this = this;
@@ -113,8 +69,12 @@ class GithubCallBack extends Component{
     }
     signupWithGithub(res){
         res.social = 'github';
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
         axios.request({
             method : 'post',
+            headers : {
+                authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+            },
             url : subscriberApiUrl+'signup_with_third_party',
             data : res
         }).then(response => {

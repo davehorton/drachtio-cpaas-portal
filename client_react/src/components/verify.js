@@ -20,8 +20,12 @@ class VerifyForm extends Component{
     }
 
     checkURL(){
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
         axios.request({
             method : 'post',
+            headers : {
+                authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+            },
             url : serverApiUrl+'verify-url',
             data : {
                 url : this.state.url

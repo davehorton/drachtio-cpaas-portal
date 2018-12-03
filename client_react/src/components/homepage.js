@@ -10,9 +10,12 @@ import WhyChooseUs from './Homepage/why_choose_us';
 import QuickTry from './Homepage/quick_try';
 import ContactUs from './Homepage/contact_us';
 
+import getNewAccessToken from '../utility/getNewAccessToken';
+
 class Homepage extends Component{
     constructor(){
         super();
+        getNewAccessToken();
     }
     render(){
         return(

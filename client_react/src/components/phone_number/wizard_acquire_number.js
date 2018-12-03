@@ -27,9 +27,13 @@ class WizardAcquireNumber extends Component{
             numberConfirmed : true,
             acquiredNumber : num.number
         });
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
         axios.request({
             method : 'post',
-            url : serverApiUrl+'acquire-number'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
+            headers : {
+                authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+            },
+            url : serverApiUrl+'acquire-number',
             data : {
                 access_token : sessionStorage.getItem('cpaas-access-token'),
                 email: sessionStorage.getItem('cpaas-email'),
@@ -42,7 +46,12 @@ class WizardAcquireNumber extends Component{
     }
 
     getAvailableNumbers(){
-        axios.get(serverApiUrl+'available-phone-numbers'+'?access_token='+sessionStorage.getItem('cpaas-access-token'))
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
+        axios.get(serverApiUrl+'available-phone-numbers',{
+                headers : {
+                    authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+                },
+            })
             .then(response=>{
                 let list = response.data.list;
                 if(list === undefined || list.length === 0){

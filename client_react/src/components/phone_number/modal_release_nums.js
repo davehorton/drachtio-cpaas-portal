@@ -17,9 +17,15 @@ class ModalReleaseNumbers extends Component{
         let list = this.state.numberList;
         if(list){
             for(let i in list){
-                console.log(serverApiUrl+list[i].id+'?access_token='+sessionStorage.getItem('cpaas-access-token'));
+                console.log(serverApiUrl+list[i].id);
+                if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
                 axios.delete(
-                    serverApiUrl+list[i].id
+                    serverApiUrl+list[i].id,
+                    {
+                        headers : {
+                            authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+                        },
+                    }
                 ).then(res => {
                     console.log(res.data);
                 })

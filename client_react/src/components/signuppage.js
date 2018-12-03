@@ -19,50 +19,6 @@ class SignUpPage extends Component{
         this.tryToSignUp = this.tryToSignUp.bind(this);
         this.signWithGoogle = this.signWithGoogle.bind(this);
     }
-    
-    getAccessToken = (email) =>{
-        let accessToken;
-        console.log('try to get access token by ',email);
-        axios.request({
-            method : "post",
-            url : serverApiUrl+"/users",
-            data : {
-                email : email,
-                password : "password"
-            }
-        }).then(res => {
-            console.log(res)
-            axios.request({
-                method : "post",
-                url : serverApiUrl + "/users/login",
-                data : {
-                    email : email,
-                    password : "password"
-                }
-            }).then(res => {
-                console.log('1user log in res', res);
-                accessToken = res.data.id;
-                sessionStorage.setItem('cpaas-access-token',accessToken);
-                console.log('my token is',accessToken);
-            })
-        }).catch(err => {
-            console.log(err);
-            axios.request({
-                method : "post",
-                url : serverApiUrl + "/users/login",
-                data : {
-                    email : email,
-                    password : "password"
-                }
-            }).then(res => {
-                console.log('2user log in res', res);
-                accessToken = res.data.id;
-                sessionStorage.setItem('cpaas-access-token',accessToken);
-                console.log('my token is',accessToken);
-            })
-        })
-        
-    }
 
     changePwdVisible(){
         if(this.state.pwdVisible === false) this.setState({pwdVisible:true});
@@ -82,8 +38,12 @@ class SignUpPage extends Component{
         }
 
         console.log(signData);
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
         axios.request({
             method : 'post',
+            headers : {
+                authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+            },
             url : subscriberApiUrl+'signup',
             data : signData
         }).then(response => {
@@ -91,6 +51,7 @@ class SignUpPage extends Component{
             this.props.history.push('/confirm');
         }).catch(err => {
             console.log(err);
+            this.props.history.push('/');
         })
     }
 
@@ -108,8 +69,12 @@ class SignUpPage extends Component{
                 email : email,
                 social : "google"
             };
+            if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
             axios.request({
                 method : 'post',
+                headers : {
+                    authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+                },
                 url : subscriberApiUrl+'signup_with_third_party',
                 data : data
             }).then(response => {
@@ -118,7 +83,6 @@ class SignUpPage extends Component{
                 {
                     sessionStorage.setItem('cpaas-email',email);
                     console.log(_this)
-                    this.getAccessToken(email);
                     setTimeout(() => {
                         _this.props.history.push('/dashboard');
                     }, 1000);

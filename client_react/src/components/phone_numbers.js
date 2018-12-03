@@ -28,9 +28,13 @@ class PhoneNumbers extends Component{
     }
 
     getMyNumbers(){
+        if(!sessionStorage.getItem('cpaas-token')) this.props.history.push('/');
         axios.request({
             method : 'post',
-            url : serverApiUrl+'get-my-numbers'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
+            headers : {
+                authorization : "bearer " + sessionStorage.getItem('cpaas-token')
+            },
+            url : serverApiUrl+'get-my-numbers',
             data : {
                 email : sessionStorage.getItem('cpaas-email')
             }
