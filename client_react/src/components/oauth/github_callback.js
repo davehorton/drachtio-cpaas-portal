@@ -85,9 +85,7 @@ class GithubCallBack extends Component{
                 sessionStorage.setItem('cpaas-email',res.email);
                 sessionStorage.setItem('cpaas-name',res.name);
                 this.getAccessToken(res.email);
-                setTimeout(() => {
-                    this.props.history.push('/dashboard');
-                }, 1000);
+                this.props.history.push('/dashboard');
             }
         }).catch(err => {
             console.log(err);

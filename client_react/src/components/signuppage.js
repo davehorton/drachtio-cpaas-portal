@@ -83,9 +83,7 @@ class SignUpPage extends Component{
                 {
                     sessionStorage.setItem('cpaas-email',email);
                     console.log(_this)
-                    setTimeout(() => {
-                        _this.props.history.push('/dashboard');
-                    }, 1000);
+                    _this.props.history.push('/dashboard');
                 }
             }).catch(err => {
                 console.log(err);

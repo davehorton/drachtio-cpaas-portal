@@ -45,9 +45,7 @@ class LogInPage extends Component{
                 if(response.data.status === 'successed'){
                     console.log('log in successed');
                     sessionStorage.setItem('cpaas-email',loginData.email);
-                    setTimeout(()=>{
-                        this.props.history.push('/dashboard');
-                    },1000);
+                    this.props.history.push('/dashboard');
                     
                 }
                 else{
@@ -84,9 +82,7 @@ class LogInPage extends Component{
                 {
                     sessionStorage.setItem('cpaas-email',email);
                     console.log(_this)
-                    setTimeout(() => {
-                        _this.props.history.push('/dashboard');
-                    }, 1000);
+                    _this.props.history.push('/dashboard');
                 }
             }).catch(err => {
                 console.log(err);
