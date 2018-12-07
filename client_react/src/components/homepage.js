@@ -11,9 +11,6 @@ import QuickTry from './Homepage/quick_try';
 import ContactUs from './Homepage/contact_us';
 
 class Homepage extends Component{
-    constructor(){
-        super();
-    }
     render(){
         return(
             <div>

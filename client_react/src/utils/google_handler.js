@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {subscriberApiUrl} from '../../constant';
-import {login} from '../../utils/login';
+import {subscriberApiUrl} from '../constant';
+import {login} from './login';
 
 export default function(successFn, googleUser) {
   const googleId = googleUser.getId();
@@ -40,6 +40,14 @@ export default function(successFn, googleUser) {
               if (successFn) {
                 successFn({email, accessToken, social: 'google', password: googleId});
               }
+            })
+            .catch((err) => {
+              if (err.response) {
+                if (err.response.status === 401) {
+                  return console.log('TODO: subscriber with that email and different password/id provider already exists in the database');
+                }
+              }
+              console.log(`Error logging in ${err}`); 
             });
         }
       });

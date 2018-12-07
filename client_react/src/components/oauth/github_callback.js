@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {serverApiUrl,subscriberApiUrl, gitOauthClientID, gitOauthClientSecret} from '../../constant';
+import {serverApiUrl,subscriberApiUrl, githubClientID, githubClientSecret} from '../../constant';
 
 const request = require('superagent');
 
@@ -70,8 +70,8 @@ class GithubCallBack extends Component{
         req.setRequestHeader('Accept', 'application/json');
         req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         req.send('code=' + data +
-            '&client_id=' + gitOauthClientID +
-            '&client_secret='+gitOauthClientSecret);
+            '&client_id=' + githubClientID +
+            '&client_secret='+githubClientSecret);
 
         req.onreadystatechange = function() {
             if(this.readyState === 4 && this.status === 200)

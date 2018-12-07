@@ -19,7 +19,8 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
-    "superagent": "^4.0.0"
+    "superagent": "^4.0.0",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",

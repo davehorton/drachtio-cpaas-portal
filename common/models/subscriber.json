@@ -93,6 +93,13 @@
       "principalId": "$owner",
       "permission": "ALLOW",
       "property": "getMyNumber"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "getGithubAccessToken"
     }
   ],
   "methods": {
@@ -174,6 +181,13 @@
       ],
       "returns": {"type": "object", "root": true},
       "http": {"path": "/:id/number", "verb": "get"}
+    },
+    "getGithubAccessToken": {
+      "accepts": [
+        {"arg": "code", "type": "string", "source": "query", "required": true}
+      ],
+      "returns": {"arg": "access_token", "type": "string"},
+      "http": {"path": "/github_access_token", "verb": "get"}
     },
     "signupWithSocial": {
       "accepts": [

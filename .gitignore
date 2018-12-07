@@ -3,3 +3,5 @@ node_modules
 .vscode 
 
 cpaas_20181205_1319EST.sql
+
+local.json

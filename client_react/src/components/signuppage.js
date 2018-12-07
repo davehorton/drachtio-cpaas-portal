@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login-component';
 import GitHubLogin from 'github-login';
-import {serverApiUrl,subscriberApiUrl, githubOauthID, googleOauthID} from '../constant';
-import google_handler from './oauth/google_handler';
+import {subscriberApiUrl, githubClientID, googleOauthID, redirectUri} from '../constant';
+import google_handler from '../utils/google_handler';
+import github_handler from '../utils/github_handler';
 
 var bcrypt = require('bcryptjs');
 
@@ -19,7 +20,6 @@ class SignUpPage extends Component{
         }
         this.changePwdVisible = this.changePwdVisible.bind(this);
         this.tryToSignUp = this.tryToSignUp.bind(this);
-        this.signWithGithub = this.signWithGithub.bind(this);
         this.signFailureWithGithub = this.signFailureWithGithub.bind(this);
     }
 
@@ -61,13 +61,6 @@ class SignUpPage extends Component{
         })
     }
 
-    signWithGithub(obj) {
-        console.log('code from sign with github: ' + obj.code);
-
-        //TODO: exchange code for access token
-        //https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
-    }
-
     signFailureWithGithub(err) {
         console.log('failure with github: ' + JSON.stringify(err));
     }
@@ -96,13 +89,13 @@ class SignUpPage extends Component{
                             responseHandler={google_handler.bind(null, this.loginSuccess.bind(this))}
                             buttonText="Continue With Google"><i className={'google icon'}/></GoogleLogin>
 
-                        <GitHubLogin clientId="8a3fdde813112f0fdb0b"
+                        <GitHubLogin clientId={githubClientID}
                             className={'btn-continue-with-github'}
-                            scope="user" 
-                            redirectUri="http://localhost:3001"
+                            scope="read:user"
+                            redirectUri={redirectUri}
                             buttonText="Continue With Github"
-                            onSuccess={this.signWithGithub} 
-                            onFailure={this.signFailureWithGithub}><i className={'github icon'}/></GitHubLogin>
+                            onSuccess={github_handler.bind(null, this.loginSuccess.bind(this))} 
+                            onFailure={this.signFailureWithGithub}><i className={'github icon'}/>Continue with Github</GitHubLogin>
                         <br/>
                         <div className={'ui horizontal divider'}>OR</div>
                         <br/>

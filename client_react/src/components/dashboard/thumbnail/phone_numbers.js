@@ -18,12 +18,12 @@ class PhoneNumbers extends Component{
     getMyNumbers(){
         console.log('dashboard numbers get number');
         console.log('my token is ',sessionStorage.getItem('cpaas-access-token'))
-        axios.request({
-            method : 'post',
-            url : serverApiUrl+'get-my-numbers'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
-            data : {
-                email : sessionStorage.getItem('cpaas-email')
-            }
+        axios.post(serverApiUrl+'get-my-numbers', {
+          email : sessionStorage.getItem('cpaas-email')
+        }, {
+          headers: {
+            'Authorization': sessionStorage.getItem('cpaas-access-token')
+          }
         }).then(response => {
             console.log('get numbers successed');
             let data = response.data.list;

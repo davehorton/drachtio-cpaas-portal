@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import NormalHeader from './headers/normal_header';
 import { Link } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login-component';
-import {serverApiUrl,subscriberApiUrl, gitOauthClientID, googleOauthID} from '../constant';
+import google_handler from '../utils/google_handler';
+import {serverApiUrl,subscriberApiUrl, githubClientID, googleOauthID} from '../constant';
 
 import axios from 'axios';
 
@@ -18,7 +19,15 @@ class LogInPage extends Component{
         this.tryToLogIn = this.tryToLogIn.bind(this);
         this.signWithGoogle = this.signWithGoogle.bind(this);
     }
-    
+
+    loginSuccess({accessToken, email, social, socialId}) {
+      sessionStorage.setItem('cpaas-access-token',accessToken);        
+      sessionStorage.setItem('cpaas-email',email);        
+      sessionStorage.setItem('cpaas-social',social);        
+      sessionStorage.setItem('cpaas-social-id',socialId);
+      this.props.history.push('/dashboard');  
+    }
+
     getAccessToken = (email) =>{
         let accessToken;
         console.log('try to get access token by ',email);
@@ -154,11 +163,11 @@ class LogInPage extends Component{
                         <GoogleLogin socialId={googleOauthID}
                             className={"btn-continue-with-google"}
                             scope={"profile email"}
-                            fetchBasicProfile={false}
-                            responseHandler={this.signWithGoogle}
+                            fetchBasicProfile={true}
+                            responseHandler={google_handler.bind(null, this.loginSuccess.bind(this))}
                             buttonText="Continue With Google"><i className={'google icon'}/></GoogleLogin>
 
-                        <a href={"https://github.com/login/oauth/authorize?client_id="+gitOauthClientID} className={'btn-continue-with-github'}><i className={'github icon'}></i> Continue with Github</a>
+                        <a href={"https://github.com/login/oauth/authorize?client_id="+githubClientID} className={'btn-continue-with-github'}><i className={'github icon'}></i> Continue with Github</a>
                         <br/>
                         <div className={'ui horizontal divider'}>OR</div>
                         <br/>

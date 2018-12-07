@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const md5 = require('md5');
+const config = require('config');
+const axios = require('axios');
 
 module.exports = function(Subscriber) { 
 
@@ -141,13 +143,35 @@ module.exports = function(Subscriber) {
         )
     }
     Subscriber.getMyNumber = function(id, cb){
-        Subscriber.findById(id, (err, instance) => {
-          console.log(instance);
-          if(instance){
-              cb(null,instance);
-          }
-        });
-    }
+      Subscriber.findById(id, (err, instance) => {
+        console.log(instance);
+        if(instance){
+            cb(null,instance);
+        }
+      });
+  }
+
+  Subscriber.getGithubAccessToken = function(code, cb) {
+    // exchange code for access token
+    axios.post('https://github.com/login/oauth/access_token', {
+      client_id: config.get('github.client_id'),
+      client_secret: config.get('github.client_secret'),
+      code: code
+    })
+      .then((res) => {
+        const arr = /access_token=(.*)&scope/.exec(res.data);
+        if (arr) {
+          const token = arr[1];
+          console.log(`received access token ${token}`);
+          return cb(null, token);
+        }
+        cb(new Error(`error parsing github response: ${res.data}`));
+      })
+      .catch((err) => {
+        console.error(`error trying to get access token from github: ${err}`);
+        cb(err);
+      });
+    };
 };
   
 

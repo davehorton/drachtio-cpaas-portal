@@ -28,20 +28,20 @@ class PhoneNumbers extends Component{
     }
 
     getMyNumbers(){
-        axios.request({
-            method : 'post',
-            url : serverApiUrl+'get-my-numbers'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
-            data : {
-                email : sessionStorage.getItem('cpaas-email')
-            }
+        axios.post(serverApiUrl+'get-my-numbers', {
+          email : sessionStorage.getItem('cpaas-email')
+        }, {
+          headers: {
+            'Authorization': sessionStorage.getItem('cpaas-access-token')
+          }
         }).then(response => {
-            let data = response.data.list;
-            if(data && data.length !== 0)
-            {
-                this.setState({
-                    myNumbers : data
-                })
-            }
+          let data = response.data.list;
+          if(data && data.length !== 0)
+          {
+            this.setState({
+                myNumbers : data
+            })
+          }
         })
     }
 
