@@ -1,0 +1,27 @@
+{
+  "name": "telecom",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "phoneNumbers": {
+      "type": "hasMany",
+      "model": "phone_number",
+      "foreignKey": "telecom_id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

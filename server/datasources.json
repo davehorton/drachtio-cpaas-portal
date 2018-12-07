@@ -1,16 +1,12 @@
 {
   "db": {
-    "name": "db",
-    "connector": "memory"
-  },
-  "mysqlDS": {
     "host": "localhost",
-    "port": 8889,
+    "port": 3306,
     "url": "",
-    "database": "cpass-db-schema",
-    "password": "asdASD123!@#",
-    "name": "mysqlDS",
-    "user": "root",
+    "database": "cpaas",
+    "password": "cpaas",
+    "name": "db",
+    "user": "cpaas",
     "connector": "mysql"
   },
   "EmailDS": {

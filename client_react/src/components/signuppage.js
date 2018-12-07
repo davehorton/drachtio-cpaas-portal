@@ -3,7 +3,9 @@ import NormalHeader from './headers/normal_header';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { GoogleLogin } from 'react-google-login-component';
-import {serverApiUrl,subscriberApiUrl, gitOauthClientID, googleOauthID} from '../constant';
+import GitHubLogin from 'github-login';
+import {serverApiUrl,subscriberApiUrl, githubOauthID, googleOauthID} from '../constant';
+import google_handler from './oauth/google_handler';
 
 var bcrypt = require('bcryptjs');
 
@@ -17,51 +19,16 @@ class SignUpPage extends Component{
         }
         this.changePwdVisible = this.changePwdVisible.bind(this);
         this.tryToSignUp = this.tryToSignUp.bind(this);
-        this.signWithGoogle = this.signWithGoogle.bind(this);
+        this.signWithGithub = this.signWithGithub.bind(this);
+        this.signFailureWithGithub = this.signFailureWithGithub.bind(this);
     }
-    
-    getAccessToken = (email) =>{
-        let accessToken;
-        console.log('try to get access token by ',email);
-        axios.request({
-            method : "post",
-            url : serverApiUrl+"/users",
-            data : {
-                email : email,
-                password : "password"
-            }
-        }).then(res => {
-            console.log(res)
-            axios.request({
-                method : "post",
-                url : serverApiUrl + "/users/login",
-                data : {
-                    email : email,
-                    password : "password"
-                }
-            }).then(res => {
-                console.log('1user log in res', res);
-                accessToken = res.data.id;
-                sessionStorage.setItem('cpaas-access-token',accessToken);
-                console.log('my token is',accessToken);
-            })
-        }).catch(err => {
-            console.log(err);
-            axios.request({
-                method : "post",
-                url : serverApiUrl + "/users/login",
-                data : {
-                    email : email,
-                    password : "password"
-                }
-            }).then(res => {
-                console.log('2user log in res', res);
-                accessToken = res.data.id;
-                sessionStorage.setItem('cpaas-access-token',accessToken);
-                console.log('my token is',accessToken);
-            })
-        })
-        
+
+    loginSuccess({accessToken, email, social, socialId}) {
+        sessionStorage.setItem('cpaas-access-token',accessToken);        
+        sessionStorage.setItem('cpaas-email',email);        
+        sessionStorage.setItem('cpaas-social',social);        
+        sessionStorage.setItem('cpaas-social-id',socialId);
+        this.props.history.push('/dashboard');  
     }
 
     changePwdVisible(){
@@ -94,39 +61,15 @@ class SignUpPage extends Component{
         })
     }
 
-    signWithGoogle(googleUser){
-        console.log(googleUser);
-        let email = googleUser.w3.U3;
-        if(!email){
-            console.log('fail');
-        }
-        else{
-            let _this = this;
-            console.log('success');
-            console.log('try to sign up with google account');
-            let data = {
-                email : email,
-                social : "google"
-            };
-            axios.request({
-                method : 'post',
-                url : subscriberApiUrl+'signup_with_third_party',
-                data : data
-            }).then(response => {
-                console.log('data is',response.data);
-                if(response.data.status === "successed" || response.data.status === "exist")
-                {
-                    sessionStorage.setItem('cpaas-email',email);
-                    console.log(_this)
-                    this.getAccessToken(email);
-                    setTimeout(() => {
-                        _this.props.history.push('/dashboard');
-                    }, 1000);
-                }
-            }).catch(err => {
-                console.log(err);
-            })
-        }
+    signWithGithub(obj) {
+        console.log('code from sign with github: ' + obj.code);
+
+        //TODO: exchange code for access token
+        //https://developer.github.com/apps/building-oauth-apps/authorizing-oauth-apps/#web-application-flow
+    }
+
+    signFailureWithGithub(err) {
+        console.log('failure with github: ' + JSON.stringify(err));
     }
 
     render(){
@@ -147,13 +90,19 @@ class SignUpPage extends Component{
                     <div className={'ui stripe segment signup center aligned'}>
                         <h1>Sign up</h1>
                         <GoogleLogin socialId={googleOauthID}
-                            className={"btn-continue-with-google"}
-                            scope={"profile email"}
-                            fetchBasicProfile={false}
-                            responseHandler={this.signWithGoogle}
+                            className="btn-continue-with-google"
+                            scope="profile email"
+                            fetchBasicProfile={true}    
+                            responseHandler={google_handler.bind(null, this.loginSuccess.bind(this))}
                             buttonText="Continue With Google"><i className={'google icon'}/></GoogleLogin>
 
-                        <a href={"https://github.com/login/oauth/authorize?client_id="+gitOauthClientID} className={'btn-continue-with-github'}><i className={'github icon'}></i> Continue with Github</a>
+                        <GitHubLogin clientId="8a3fdde813112f0fdb0b"
+                            className={'btn-continue-with-github'}
+                            scope="user" 
+                            redirectUri="http://localhost:3001"
+                            buttonText="Continue With Github"
+                            onSuccess={this.signWithGithub} 
+                            onFailure={this.signFailureWithGithub}><i className={'github icon'}/></GitHubLogin>
                         <br/>
                         <div className={'ui horizontal divider'}>OR</div>
                         <br/>

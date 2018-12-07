@@ -22,23 +22,17 @@ class Dashboard extends Component{
     }
 
     componentDidMount(){
-        let email = sessionStorage.getItem('cpaas-email');
-        let name = sessionStorage.getItem('cpaas-name');
-        if(email === null || email === ''){
-            console.log('no session');
-            this.props.history.push('/');
-        }
-        else{
-            console.log('welcome',email);
-            if(name === '')
-                this.setState({
-                    user : email
-                });
-            else
-            this.setState({
-                user : name
-            });
-        }
+      let email = sessionStorage.getItem('cpaas-email');
+      if(!email){
+        console.log('no session');
+        this.props.history.push('/');
+      }
+      else{
+        console.log('welcome',email);
+        this.setState({
+            user : email
+        });
+      }
     }
     wizardSkipped(){
         console.log('wizard skipped');

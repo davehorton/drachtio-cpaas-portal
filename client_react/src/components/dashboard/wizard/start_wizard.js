@@ -6,10 +6,10 @@ const serverApiUrl = "http://localhost:3000/api/subscribers/";
 class StartWizard extends Component{
     componentDidMount(){
         axios.request({
-            method : 'post',
-            url : serverApiUrl + 'get-my-number'+'?access_token='+sessionStorage.getItem('cpaas-access-token'),
-            data : {
-                email : sessionStorage.getItem('cpaas-email')
+            method : 'get',
+            url : serverApiUrl + 'me/number',
+            headers: {
+              'Authorization': sessionStorage.getItem('cpaas-access-token')
             }
         }).then(response => {
             let number = response.data.number;

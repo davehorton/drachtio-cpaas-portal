@@ -1,6 +1,6 @@
 {
   "name": "subscriber",
-  "base": "PersistedModel",
+  "base": "User",
   "idInjection": true,
   "options": {
     "validateUpsert": true
@@ -9,14 +9,10 @@
     "id": {
       "type": "number"
     },
-    "email": {
-      "type": "string",
-      "required": true
-    },
-    "name": {
+    "first": {
       "type": "string"
     },
-    "pwd": {
+    "last": {
       "type": "string"
     },
     "status": {
@@ -34,15 +30,28 @@
     "my_number": {
       "type": "string"
     },
-    "third_party_connect": {
-      "type": "string"
-    },
-    "confirm_url": {
+    "social_id_provider": {
       "type": "string"
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "applications": {
+      "type": "hasMany",
+      "model": "application",
+      "foreignKey": "subscriber_id"
+    },
+    "phoneNumbers": {
+      "type": "hasMany",
+      "model": "phone_number",
+      "foreignKey": "subscriber_id"
+    },
+    "dialogflows": {
+      "type": "hasMany",
+      "model": "dialogflow",
+      "foreignKey": "subscriber_id"
+    }
+  },
   "acls": [
     {
       "accessType": "*",
@@ -76,30 +85,17 @@
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "ALLOW",
-      "property": "signupWithThirdParty"
+      "property": "signupWithSocial"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "getMyNumber"
     }
   ],
   "methods": {
-    "login": {
-      "accepts": [
-        {
-          "arg": "email",
-          "type": "string"
-        },
-        {
-          "arg": "pwd",
-          "type": "string"
-        }
-      ],
-      "returns": {
-        "arg": "status",
-        "type": "string"
-      },
-      "http": {
-        "verb": "get",
-        "path": "/login"
-      }
-    },
     "signup": {
       "accepts": [
         {
@@ -174,32 +170,31 @@
     },
     "getMyNumber": {
       "accepts": [
-        {
-          "arg": "email",
-          "type": "string"
-        }
+        {"arg": "id", "type": "number", "required": true}
       ],
-      "returns": {
-        "arg": "number",
-        "type": "string"
-      },
-      "http": {
-        "path": "/get-my-number",
-        "verb": "post"
-      }
+      "returns": {"type": "object", "root": true},
+      "http": {"path": "/:id/number", "verb": "get"}
     },
-    "signupWithThirdParty": {
+    "signupWithSocial": {
       "accepts": [
         {
           "arg": "email",
           "type": "string"
         },
         {
-          "arg": "name",
+          "arg": "social",
           "type": "string"
         },
         {
-          "arg": "social",
+          "arg": "password",
+          "type": "string"
+        },
+        {
+          "arg": "first",
+          "type": "string"
+        },
+        {
+          "arg": "last",
           "type": "string"
         }
       ],
@@ -208,7 +203,7 @@
         "type": "string"
       },
       "http": {
-        "path": "/signup_with_third_party",
+        "path": "/signup_with_social",
         "verb": "post"
       }
     }

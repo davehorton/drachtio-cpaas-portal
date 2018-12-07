@@ -1,0 +1,57 @@
+{
+  "name": "application",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "subscriber_id": {
+      "type": "number",
+      "required": true
+    },
+    "callback_url": {
+      "type": "string"
+    },
+    "dialogflow_id": {
+      "type": "number"
+    },
+    "lang_code": {
+      "type": "string"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "want_transcription": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "want_intents": {
+      "type": "boolean",
+      "default": false
+    },
+    "want_dtmf": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {
+    "phoneNumbers": {
+      "type": "hasMany",
+      "model": "phone_number",
+      "foreignKey": "application_id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

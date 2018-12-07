@@ -18,7 +18,14 @@
   },
   "AccessToken": {
     "dataSource": "db",
-    "public": false
+    "public": false,
+    "relations": {
+      "user": {
+        "type": "belongsTo",
+        "model": "subscriber",
+        "foreignKey": "userId"
+      }
+    }
   },
   "ACL": {
     "dataSource": "db",
@@ -36,14 +43,27 @@
     "public": false
   },
   "subscriber": {
-    "dataSource": "mysqlDS",
+    "dataSource": "db",
     "public": true
   },
-  "Email": {
-    "dataSource": "EmailDS"
-  },
   "phone_number": {
-    "dataSource": "mysqlDS",
+    "dataSource": "db",
+    "public": true
+  },
+  "application": {
+    "dataSource": "db",
+    "public": true
+  },
+  "product_offering": {
+    "dataSource": "db",
+    "public": true
+  },
+  "telecom": {
+    "dataSource": "db",
+    "public": true
+  },
+  "dialogflow": {
+    "dataSource": "db",
     "public": true
   }
 }
