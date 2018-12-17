@@ -3,13 +3,7 @@ import NormalHeader from "./headers/normal_header";
 import { Link } from "react-router-dom";
 import { GoogleLogin } from "react-google-login-component";
 import GitHubLogin from "github-login";
-import {
-  serverApiUrl,
-  subscriberApiUrl,
-  githubClientID,
-  googleOauthID,
-  redirectUri
-} from "../constant";
+import { serverApiUrl, subscriberApiUrl, githubClientID, googleOauthID, redirectUri } from "../constant";
 import axios from "axios";
 import google_handler from "../utils/google_handler";
 import github_handler from "../utils/github_handler";
@@ -99,20 +93,18 @@ class LogInPage extends Component {
       pwd: this.state.pwd
     };
     console.log("log in data is ", loginData);
-    axios
-      .get(serverApiUrl + "?email=" + loginData.email + "&pwd=" + loginData.pwd)
-      .then(response => {
-        if (response.data.status === "successed") {
-          console.log("log in successed");
-          sessionStorage.setItem("cpaas-email", loginData.email);
-          this.getAccessToken(loginData.email);
-          setTimeout(() => {
-            this.props.history.push("/dashboard");
-          }, 1000);
-        } else {
-          console.log("log in failed");
-        }
-      });
+    axios.get(serverApiUrl + "?email=" + loginData.email + "&pwd=" + loginData.pwd).then(response => {
+      if (response.data.status === "successed") {
+        console.log("log in successed");
+        sessionStorage.setItem("cpaas-email", loginData.email);
+        this.getAccessToken(loginData.email);
+        setTimeout(() => {
+          this.props.history.push("/dashboard");
+        }, 1000);
+      } else {
+        console.log("log in failed");
+      }
+    });
   }
 
   signWithGoogle(googleUser) {
@@ -136,10 +128,7 @@ class LogInPage extends Component {
         })
         .then(response => {
           console.log("data is", response.data);
-          if (
-            response.data.status === "successed" ||
-            response.data.status === "exist"
-          ) {
+          if (response.data.status === "successed" || response.data.status === "exist") {
             sessionStorage.setItem("cpaas-email", email);
             console.log(_this);
             this.getAccessToken(email);
@@ -171,38 +160,31 @@ class LogInPage extends Component {
           width: "100%",
           height: "100%",
           backgroundColor: "#ddd"
-        }}
-      >
+        }}>
         <NormalHeader activeTab={"login"} />
         <div className={"ui text container"} style={{ marginTop: "5rem" }}>
+          <h1 id={"login-signup"} className={"ui center aligned header"}>
+            Log In
+          </h1>
           <div className={"ui stripe segment signup center aligned"}>
             <GoogleLogin
               socialId={googleOauthID}
               className={"btn-continue-with-google"}
               scope={"profile email"}
               fetchBasicProfile={true}
-              responseHandler={google_handler.bind(
-                null,
-                this.loginSuccess.bind(this)
-              )}
-            >
+              responseHandler={google_handler.bind(null, this.loginSuccess.bind(this))}>
               <i className={"google-icon"} /> Continue with Google
             </GoogleLogin>
-            {/* <GitHubLogin
+            <GitHubLogin
               clientId={githubClientID}
               className={"btn-continue-with-github"}
               scope="read:user"
               redirectUri={redirectUri}
-              onSuccess={github_handler.bind(
-                null,
-                this.loginSuccess.bind(this)
-              )}
-              onFailure={this.signFailureWithGithub}
-            >
-              <i id={"github-icon"} className={"github icon"} /> Continue with
-              Github
-            </GitHubLogin> */}
-            <a
+              onSuccess={github_handler.bind(null, this.loginSuccess.bind(this))}
+              onFailure={this.signFailureWithGithub}>
+              <i id={"github-icon"} className={"github icon"} /> Continue with Github
+            </GitHubLogin>
+            {/* <a
               href={
                 "https://github.com/login/oauth/authorize?client_id=" +
                 githubClientID
@@ -211,7 +193,7 @@ class LogInPage extends Component {
             >
               <i id={"github-icon"} className={"github icon"} /> Continue with
               Github
-            </a>
+            </a> */}
             <br />
             <div className={"ui horizontal divider"}>OR</div>
             <br />
@@ -236,18 +218,10 @@ class LogInPage extends Component {
                     this.setState({ pwd: e.target.value });
                   }}
                 />
-                <i
-                  style={{ color: "#d91c5c" }}
-                  className={iconEye}
-                  onClick={this.changePwdVisible}
-                />
+                <i style={{ color: "#d91c5c" }} className={iconEye} onClick={this.changePwdVisible} />
               </div>
               <br />
-              <div
-                id={"login-continue-button"}
-                className={"ui button huge fluid primary"}
-                onClick={this.tryToLogIn}
-              >
+              <div id={"login-continue-button"} className={"ui button huge fluid primary"} onClick={this.tryToLogIn}>
                 Log In
               </div>
             </div>

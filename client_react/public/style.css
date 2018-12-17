@@ -136,8 +136,7 @@ h1.header {
   cursor: pointer;
   display: block;
   border: 0;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.0783231),
-    0px 0px 4px rgba(0, 0, 0, 0.0783231);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.0783231), 0px 0px 4px rgba(0, 0, 0, 0.0783231);
   border-radius: 8px;
   font-family: Work Sans;
   font-style: normal;
@@ -407,6 +406,16 @@ h1.header {
   padding: 2rem 5rem;
 }
 
+#login-signup {
+  height: 56px;
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 48px;
+  font-size: 48px;
+  padding: 1em;
+}
+
 #login-continue-button {
   position: absolute;
   background: #d91c5c;
@@ -441,7 +450,7 @@ h1.header {
   background-size: 100%;
   left: 10%;
   right: 80%;
-  top: 12%;
+  top: 12.5%;
   bottom: 25%;
 }
 
@@ -453,6 +462,38 @@ h1.header {
   background-size: 100%;
   left: 10%;
   right: 80%;
-  top: 23.5%;
+  top: 24%;
   bottom: 25%;
+}
+
+.side-icons {
+  mix-blend-mode: normal;
+  opacity: 0.9;
+  left: 18.33%;
+  right: 73.33%;
+  top: 22.22%;
+  bottom: 22.22%;
+  margin-right: 10px;
+}
+
+#sidebar-text:hover {
+  color: #d91c5c;
+}
+
+#active-panel {
+  color: #d91c5c;
+}
+
+.sidebar-text {
+  height: 26px;
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  font-size: 16px;
+  color: #565656;
+  left: 20%;
+
+  mix-blend-mode: normal;
+  opacity: 0.9;
 }

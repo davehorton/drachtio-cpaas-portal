@@ -4,12 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { GoogleLogin } from "react-google-login-component";
 import GitHubLogin from "github-login";
-import {
-  subscriberApiUrl,
-  githubClientID,
-  googleOauthID,
-  redirectUri
-} from "../constant";
+import { subscriberApiUrl, githubClientID, googleOauthID, redirectUri } from "../constant";
 import google_handler from "../utils/google_handler";
 import github_handler from "../utils/github_handler";
 
@@ -89,21 +84,19 @@ class SignUpPage extends Component {
           width: "100%",
           height: "100%",
           backgroundColor: "#ddd"
-        }}
-      >
+        }}>
         <NormalHeader activeTab={"signup"} />
         <div className={"ui text container"} style={{ marginTop: "5rem" }}>
+          <h1 id={"login-signup"} className={"ui center aligned header"}>
+            Sign Up
+          </h1>
           <div className={"ui stripe segment signup center aligned"}>
             <GoogleLogin
               socialId={googleOauthID}
               className="btn-continue-with-google"
               scope="profile email"
               fetchBasicProfile={true}
-              responseHandler={google_handler.bind(
-                null,
-                this.loginSuccess.bind(this)
-              )}
-            >
+              responseHandler={google_handler.bind(null, this.loginSuccess.bind(this))}>
               <i className={"google-icon"} /> Continue with Google
             </GoogleLogin>
             <GitHubLogin
@@ -111,14 +104,9 @@ class SignUpPage extends Component {
               className={"btn-continue-with-github"}
               scope="read:user"
               redirectUri={redirectUri}
-              onSuccess={github_handler.bind(
-                null,
-                this.loginSuccess.bind(this)
-              )}
-              onFailure={this.signFailureWithGithub}
-            >
-              <i id={"github-icon"} className={"github icon"} /> Continue with
-              Github
+              onSuccess={github_handler.bind(null, this.loginSuccess.bind(this))}
+              onFailure={this.signFailureWithGithub}>
+              <i id={"github-icon"} className={"github icon"} /> Continue with Github
             </GitHubLogin>
             <br />
             <div className={"ui horizontal divider"}>OR</div>
@@ -144,18 +132,10 @@ class SignUpPage extends Component {
                     this.setState({ pwd: e.target.value });
                   }}
                 />
-                <i
-                  style={{ color: "#d91c5c" }}
-                  className={iconEye}
-                  onClick={this.changePwdVisible}
-                />
+                <i style={{ color: "#d91c5c" }} className={iconEye} onClick={this.changePwdVisible} />
               </div>
               <br />
-              <div
-                id={"login-continue-button"}
-                className={"ui button huge fluid primary"}
-                onClick={this.tryToSignUp}
-              >
+              <div id={"login-continue-button"} className={"ui button huge fluid primary"} onClick={this.tryToSignUp}>
                 Continue
               </div>
             </div>
