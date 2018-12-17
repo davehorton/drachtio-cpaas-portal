@@ -101,56 +101,6 @@ module.exports = function(Subscriber) {
       });
     };
 
-    Subscriber.getMyInfo = function(email, cb){
-        Subscriber.findOne(
-            {
-                where : {
-                    email : email
-                }
-            },
-            function(err,instance){
-                console.log(instance);
-                let response = {};
-                if(instance){
-                    response.email = instance.email;
-                    response.name = instance.name;
-                    response.current_plan = "Free Trial Plan";
-                    response.subscriberID = instance.id;
-                }
-                cb(null,response);
-            }
-        )
-    }
-
-    Subscriber.addMyNumber = function(email, number, cb){
-        Subscriber.findOne(
-            {
-                where : {
-                    email : email
-                }
-            },
-            function(err,instance){
-                console.log(instance);
-                if(instance){
-                    instance.my_number = number;
-                    console.log('try to change my number '+email+' '+number);
-                    Subscriber.replaceById(instance.id, instance, function(err, instance){
-                        if(instance)
-                            cb(null, "successed");
-                    })
-                }
-            }
-        )
-    }
-    Subscriber.getMyNumber = function(id, cb){
-      Subscriber.findById(id, (err, instance) => {
-        console.log(instance);
-        if(instance){
-            cb(null,instance);
-        }
-      });
-  }
-
   Subscriber.getGithubAccessToken = function(code, cb) {
     // exchange code for access token
     axios.post('https://github.com/login/oauth/access_token', {

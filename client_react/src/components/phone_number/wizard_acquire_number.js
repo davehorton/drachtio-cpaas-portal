@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import axiosAuth from '../../utils/axios'
 
 const $ = window.$;
 const serverApiUrl = 'http://localhost:3000/api/phone_numbers/';
@@ -27,11 +27,10 @@ class WizardAcquireNumber extends Component{
             numberConfirmed : true,
             acquiredNumber : num.number
         });
-        axios.request({
+        axiosAuth().request({
             method : 'post',
-            url : serverApiUrl+'acquire-number?access_token='+sessionStorage.getItem('cpaas-access-token'),
+            url : serverApiUrl + 'acquire-number',
             data : {
-                access_token : sessionStorage.getItem('cpaas-access-token'),
                 email: sessionStorage.getItem('cpaas-email'),
                 number : num.number
             }
@@ -42,7 +41,7 @@ class WizardAcquireNumber extends Component{
     }
 
     getAvailableNumbers(){
-        axios.get(serverApiUrl+'available-phone-numbers?access_token='+sessionStorage.getItem('cpaas-access-token'))
+      axiosAuth().get(serverApiUrl+'available-phone-numbers')
             .then(response=>{
                 let list = response.data.list;
                 if(list === undefined || list.length === 0){
