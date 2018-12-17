@@ -125,6 +125,7 @@
   ],
   "methods": {
     "signup": {
+      "description": "Create a new instance of Subscriber using provided email and password, generating an email confirmation.",
       "accepts": [
         {
           "arg": "email",
@@ -145,6 +146,7 @@
       }
     },
     "verifyEmail": {
+      "description": "Update a Subscriber to active status based on email confirmation.",
       "accepts": [
         {
           "arg": "url",
@@ -161,6 +163,7 @@
       }
     },
     "getGithubAccessToken": {
+      "description": "Exchanges a github code for an access token that can be used to query the gituhub account.",
       "accepts": [
         {"arg": "code", "type": "string", "source": "query", "required": true}
       ],
@@ -168,6 +171,7 @@
       "http": {"path": "/github_access_token", "verb": "get"}
     },
     "signupWithSocial": {
+      "description": "Create a new instance of Subscriber using information from a social identity provider.",
       "accepts": [
         {
           "arg": "email",
