@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axiosAuth from '../../../utils/axios'
 
-const serverApiUrl = "http://localhost:3000/api/phone_numbers/";
+const serverApiUrl = "http://localhost:3000/api/subscribers/";
 class PhoneNumbers extends Component {
   constructor(props) {
     super(props);
@@ -16,30 +16,9 @@ class PhoneNumbers extends Component {
   }
 
   getMyNumbers() {
-    console.log("dashboard numbers get number");
-    console.log("my token is ", sessionStorage.getItem("cpaas-access-token"));
-    axios
-      .post(
-        serverApiUrl + "get-my-numbers",
-        {
-          email: sessionStorage.getItem("cpaas-email")
-        },
-        {
-          headers: {
-            Authorization: sessionStorage.getItem("cpaas-access-token")
-          }
-        }
-      )
-      .then(response => {
-        console.log("get numbers successed");
-        let data = response.data.list;
-        console.log("number list ", data);
-        if (data && data.length !== 0) {
-          this.setState({
-            numberList: data
-          });
-        }
-      });
+    axiosAuth()
+      .get(`${serverApiUrl}me/phoneNumbers`)
+      .then(response => this.setState({numberList: response.data}));
   }
 
   render() {

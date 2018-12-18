@@ -9,7 +9,6 @@ export default function(successFn, googleUser) {
   const first = profile.getGivenName();
   const last = profile.getFamilyName();
 
-  console.log(googleUser);
   console.log('googleId: ' + googleId);
   console.log('id_token: ' + id_token);
   console.log('profile: ' + JSON.stringify(profile));

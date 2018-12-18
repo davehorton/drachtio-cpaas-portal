@@ -100,10 +100,32 @@
       "principalId": "$everyone",
       "permission": "ALLOW",
       "property": "getGithubAccessToken"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__get__phoneNumbers"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__get__applications"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__get__dialogflows"
     }
   ],
   "methods": {
     "signup": {
+      "description": "Create a new instance of Subscriber using provided email and password, generating an email confirmation.",
       "accepts": [
         {
           "arg": "email",
@@ -124,6 +146,7 @@
       }
     },
     "verifyEmail": {
+      "description": "Update a Subscriber to active status based on email confirmation.",
       "accepts": [
         {
           "arg": "url",
@@ -139,50 +162,8 @@
         "verb": "post"
       }
     },
-    "getMyInfo": {
-      "accepts": [
-        {
-          "arg": "email",
-          "type": "string"
-        }
-      ],
-      "returns": {
-        "arg": "info",
-        "type": "string"
-      },
-      "http": {
-        "path": "/get-my-info",
-        "verb": "post"
-      }
-    },
-    "addMyNumber": {
-      "accepts": [
-        {
-          "arg": "email",
-          "type": "string"
-        },
-        {
-          "arg": "number",
-          "type": "string"
-        }
-      ],
-      "returns": {
-        "arg": "status",
-        "type": "string"
-      },
-      "http": {
-        "path": "/add-my-number",
-        "verb": "post"
-      }
-    },
-    "getMyNumber": {
-      "accepts": [
-        {"arg": "id", "type": "number", "required": true}
-      ],
-      "returns": {"type": "object", "root": true},
-      "http": {"path": "/:id/number", "verb": "get"}
-    },
     "getGithubAccessToken": {
+      "description": "Exchanges a github code for an access token that can be used to query the gituhub account.",
       "accepts": [
         {"arg": "code", "type": "string", "source": "query", "required": true}
       ],
@@ -190,6 +171,7 @@
       "http": {"path": "/github_access_token", "verb": "get"}
     },
     "signupWithSocial": {
+      "description": "Create a new instance of Subscriber using information from a social identity provider.",
       "accepts": [
         {
           "arg": "email",

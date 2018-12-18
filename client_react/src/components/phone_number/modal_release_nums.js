@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axiosAuth from '../../utils/axios'
 
 const serverApiUrl = "http://localhost:3000/api/phone_numbers/";
 
@@ -23,9 +23,10 @@ class ModalReleaseNumbers extends Component {
             "?access_token=" +
             sessionStorage.getItem("cpaas-access-token")
         );
-        axios.delete(serverApiUrl + list[i].id).then(res => {
-          console.log(res.data);
-        });
+        axiosAuth()
+          .delete(serverApiUrl + list[i].id).then(res => {
+            console.log(res.data);
+          });
       }
     }
   }

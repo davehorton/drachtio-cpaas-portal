@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axiosAuth from '../../../utils/axios'
 
 const serverApiUrl = "http://localhost:3000/api/subscribers/";
 const $ = window.$;
@@ -8,8 +8,7 @@ class AddYourNumber extends Component {
     super(props);
     this.state = {
       saved: false,
-      phoneNum: "",
-      myNumber: ""
+      phoneNumber: ''
     };
     this.addMyNumber = this.addMyNumber.bind(this);
     this.checkMyNumber = this.checkMyNumber.bind(this);
@@ -23,41 +22,19 @@ class AddYourNumber extends Component {
     this.setState({
       saved: true
     });
-    axios
-      .request({
-        method: "post",
-        url:
-          serverApiUrl +
-          "add-my-number?access_token=" +
-          sessionStorage.getItem("cpaas-access-token"),
-        data: {
-          email: sessionStorage.getItem("cpaas-email"),
-          number: this.state.phoneNum
-        }
-      })
+    axiosAuth()
+      .patch(`${serverApiUrl}me`, { my_number: this.state.phoneNumber})
       .then(response => {
-        console.log(response.data);
+        console.log(`updated phone number: ${JSON.stringify(response.data)}`);
       });
   }
 
   checkMyNumber() {
-    axios
-      .request({
-        method: "post",
-        url:
-          serverApiUrl +
-          "get-my-number?access_token=" +
-          sessionStorage.getItem("cpaas-access-token"),
-        data: {
-          email: sessionStorage.getItem("cpaas-email"),
-          number: this.state.phoneNum
-        }
-      })
-      .then(response => {
-        this.setState({
-          myNumber: response.data.number
-        });
-      });
+    axiosAuth()
+    .get(`${serverApiUrl}me`)
+    .then(response => this.setState({
+      phoneNumber: response.data.my_number
+    }));  
   }
 
   render() {
@@ -76,9 +53,9 @@ class AddYourNumber extends Component {
                 <input
                   type={"text"}
                   placeholder={"(999) 999-9999"}
-                  value={this.state.phoneNum}
+                  value={this.state.phoneNumber || ''}
                   onChange={e => {
-                    this.setState({ phoneNum: e.target.value });
+                    this.setState({ phoneNumber: e.target.value });
                   }}
                 />
               </div>
@@ -107,22 +84,17 @@ class AddYourNumber extends Component {
           <h3 className={"ui header"}>
             The following number is successfully saved
           </h3>
-          <h4>{this.state.phoneNum}</h4>
+          <h4>{this.state.phoneNumber}</h4>
           <br />
           <p>You can edit it by going to your account</p>
         </div>
       );
     let style = {
-      display: "none"
+      display: 'block'
     };
-    if (this.state.myNumber === "")
-      style = {
-        display: "block"
-      };
-
     return (
       <div>
-        <div className={"ui text hidden"} style={style}>
+        <div className={"ui text"} style={style}>
           {currentElement}
         </div>
       </div>

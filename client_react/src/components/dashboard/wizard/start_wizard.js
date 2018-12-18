@@ -1,21 +1,16 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axiosAuth from '../../../utils/axios'
 
 const serverApiUrl = "http://localhost:3000/api/subscribers/";
 
 class StartWizard extends Component {
   componentDidMount() {
-    axios
-      .request({
-        method: "get",
-        url: serverApiUrl + "me/number",
-        headers: {
-          Authorization: sessionStorage.getItem("cpaas-access-token")
-        }
-      })
+    axiosAuth()
+      .get(`${serverApiUrl}me`)
       .then(response => {
-        let number = response.data.number;
-        if (number !== "") this.props.onSkip();
+        // TODO: once we want to implement wizard, check if 
+        // this is the first login or something....for now skip
+        this.props.onSkip();
       });
   }
   render() {

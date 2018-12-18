@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axiosAuth from '../../../utils/axios'
 
 const serverApiUrl = "http://localhost:3000/api/subscribers/";
 class AccountInfo extends Component {
@@ -20,24 +20,9 @@ class AccountInfo extends Component {
   }
 
   getAccountInfo() {
-    axios
-      .request({
-        method: "post",
-        url:
-          serverApiUrl +
-          "get-my-info?access_token=" +
-          sessionStorage.getItem("cpaas-access-token"),
-        data: {
-          email: sessionStorage.getItem("cpaas-email")
-        }
-      })
-      .then(response => {
-        let data = response.data.info;
-        this.setState({
-          info: data
-        });
-        console.log("account info ", this.state.info);
-      });
+    axiosAuth()
+      .get(`${serverApiUrl}me`)
+      .then(response => this.setState({info: response.data}));
   }
 
   render() {
