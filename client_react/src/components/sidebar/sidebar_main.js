@@ -14,59 +14,75 @@ class SidebarMain extends Component {
   }
 
   render() {
-    // let classDashboard = "item";
-    // let classAccount = "item";
-    // let classPhoneNum = "item ";
-    // let classApps = "item";
+    const iconStyles = {
+      marginRight: "16px",
+      height: "20px",
+      width: "20px"
+    };
+
+    const listItemStlyes = {
+      borderLeftColor: "#d91c5c",
+      borderLeftWidth: "16px",
+      borderLeftStyle: "solid",
+      paddingLeft: "25px"
+    };
+
     let classDashboard = "";
     let classAccount = "";
-    let classPhoneNum = " ";
+    let classPhoneNum = "";
     let classApps = "";
-    console.log("PROPS", this.props);
     switch (this.props.page) {
       case "dashboard":
-        classDashboard += " active";
+        classDashboard = "active";
         break;
       case "account":
-        classAccount += " active";
+        classAccount = "active";
         break;
       case "phone_num":
-        classPhoneNum += " active";
+        classPhoneNum = "active";
         break;
       case "apps":
-        classApps += " active";
+        classApps = "active";
         break;
       default:
         break;
     }
     return (
-      <div className={"ui left vertical menu sidebar-left"} style={{ fontSize: "16px" }}>
-        <ul>
-          <div className={classDashboard} style={{ boxDirection: "none" }}>
-            <Link to={"dashboard"} className={"sidebar-text"} id={`${classDashboard === "" ? "" : "active-panel"}`}>
-              <i className="icon tachometer alternate side-icons" style={{ marginRight: "12px" }} />
-              Dashboard
-            </Link>
-          </div>
-          <div className={classAccount}>
-            <Link to={"account"} className={"sidebar-text"} id={`${classAccount === "" ? "" : "active-panel"}`}>
-              <i className="icon sliders horizontal side-icons" style={{ marginRight: "12px" }} />
-              Account
-            </Link>
-          </div>
-          <div className={classPhoneNum}>
-            <Link to={"phone_num"} className={"sidebar-text"} id={`${classPhoneNum === "" ? "" : "active-panel"}`}>
-              <i className="icon phone side-icons" style={{ marginRight: "12px" }} />
-              Phone Numbers
-            </Link>
-          </div>
-          <div className={classApps}>
-            <Link to={"apps"} className={"sidebar-text"} id={`${classApps === "" ? "" : "active-panel"}`}>
-              <i className="icon th large side-icons" style={{ marginRight: "12px" }} />
-              Applications
-            </Link>
-          </div>
-        </ul>
+      <div
+        className={"ui left vertical menu sidebar-left"}
+        style={{ fontSize: "16px", width: "240px", height: "1000px" }}>
+        <br />
+        &nbsp;&nbsp;
+        <div className={classDashboard} style={classDashboard === "" ? { paddingLeft: "35px" } : listItemStlyes}>
+          <Link to={"dashboard"} className={"sidebar-text"} id={`${classDashboard === "" ? "" : "active-panel"}`}>
+            <i className="icon tachometer alternate side-icons" style={iconStyles} />
+            Dashboard
+          </Link>
+        </div>
+        <br />
+        &nbsp;&nbsp;
+        <div className={classAccount} style={classAccount === "" ? { paddingLeft: "35px" } : listItemStlyes}>
+          <Link to={"account"} className={"sidebar-text"} id={`${classAccount === "" ? "" : "active-panel"}`}>
+            <i className="icon sliders horizontal side-icons" style={iconStyles} />
+            Account
+          </Link>
+        </div>
+        <br />
+        &nbsp;&nbsp;
+        <div className={classPhoneNum} style={classPhoneNum === "" ? { paddingLeft: "35px" } : listItemStlyes}>
+          <Link to={"phone_num"} className={"sidebar-text"} id={`${classPhoneNum === "" ? "" : "active-panel"}`}>
+            <i className="icon phone side-icons" style={iconStyles} />
+            Phone Numbers
+          </Link>
+        </div>
+        <br />
+        &nbsp;&nbsp;
+        <div className={classApps} style={classApps === "" ? { paddingLeft: "35px" } : listItemStlyes}>
+          <Link to={"apps"} className={"sidebar-text"} id={`${classApps === "" ? "" : "active-panel"}`}>
+            <i className="icon th large side-icons" style={iconStyles} />
+            Applications
+          </Link>
+        </div>
       </div>
     );
   }

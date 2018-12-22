@@ -1,9 +1,12 @@
+@import url(http://fonts.googleapis.com/css?family=Work+Sans:300italic, 400italic, 700italic, 300, 400, 700);
+
 html,
 body {
   height: 100%;
   background: #eee;
   color: #565656;
 }
+
 .bg-color-gray {
   background: #eee;
 }
@@ -466,7 +469,7 @@ h1.header {
   bottom: 25%;
 }
 
-.side-icons {
+/* .side-icons {
   mix-blend-mode: normal;
   opacity: 0.9;
   left: 18.33%;
@@ -474,7 +477,7 @@ h1.header {
   top: 22.22%;
   bottom: 22.22%;
   margin-right: 10px;
-}
+} */
 
 #sidebar-text:hover {
   color: #d91c5c;
@@ -496,4 +499,27 @@ h1.header {
 
   mix-blend-mode: normal;
   opacity: 0.9;
+}
+
+.sidebar-item-active {
+  background: #d91c5c;
+  width: 3px;
+  height: 26px;
+  margin-right: 20px;
+  float: left;
+}
+
+.pink-bar-hide {
+  float: left;
+  width: 3px;
+  height: 26px;
+  margin-right: 20px;
+  /* margin-left: 0px; */
+  display: hidden;
+}
+
+#list-item {
+  border-left-color: #d91c5c;
+  border-left-width: 10px;
+  border-left-style: solid;
 }
