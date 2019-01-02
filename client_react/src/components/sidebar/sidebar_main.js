@@ -54,7 +54,7 @@ class SidebarMain extends Component {
         <br />
         &nbsp;&nbsp;
         <div className={classDashboard} style={classDashboard === "" ? { paddingLeft: "35px" } : listItemStlyes}>
-          <Link to={"dashboard"} className={"sidebar-text"} id={`${classDashboard === "" ? "" : "active-panel"}`}>
+          <Link to={"dashboard"} className={"sidebar-text"} id={`${classDashboard === "" ? "" : "active"}`}>
             <i className="icon tachometer alternate side-icons" style={iconStyles} />
             Dashboard
           </Link>
@@ -62,7 +62,7 @@ class SidebarMain extends Component {
         <br />
         &nbsp;&nbsp;
         <div className={classAccount} style={classAccount === "" ? { paddingLeft: "35px" } : listItemStlyes}>
-          <Link to={"account"} className={"sidebar-text"} id={`${classAccount === "" ? "" : "active-panel"}`}>
+          <Link to={"account"} className={"sidebar-text"} id={`${classAccount === "" ? "" : "active"}`}>
             <i className="icon sliders horizontal side-icons" style={iconStyles} />
             Account
           </Link>
@@ -70,7 +70,7 @@ class SidebarMain extends Component {
         <br />
         &nbsp;&nbsp;
         <div className={classPhoneNum} style={classPhoneNum === "" ? { paddingLeft: "35px" } : listItemStlyes}>
-          <Link to={"phone_num"} className={"sidebar-text"} id={`${classPhoneNum === "" ? "" : "active-panel"}`}>
+          <Link to={"phone_num"} className={"sidebar-text"} id={`${classPhoneNum === "" ? "" : "active"}`}>
             <i className="icon phone side-icons" style={iconStyles} />
             Phone Numbers
           </Link>
@@ -78,7 +78,7 @@ class SidebarMain extends Component {
         <br />
         &nbsp;&nbsp;
         <div className={classApps} style={classApps === "" ? { paddingLeft: "35px" } : listItemStlyes}>
-          <Link to={"apps"} className={"sidebar-text"} id={`${classApps === "" ? "" : "active-panel"}`}>
+          <Link to={"apps"} className={"sidebar-text"} id={`${classApps === "" ? "" : "active"}`}>
             <i className="icon th large side-icons" style={iconStyles} />
             Applications
           </Link>

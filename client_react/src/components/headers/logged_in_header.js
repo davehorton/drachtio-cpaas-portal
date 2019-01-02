@@ -45,20 +45,20 @@ class LoggedInHeader extends Component {
         style={{ display: "flex" }}
       >
         <div className={"ui container"}>
+        <div className={"left menu"}>
           <Link to="/" className={"item"}>
             CPAAS
           </Link>
-          <div className={"right menu"}>
-            <Link to="/documentation" className={classNavDocs}>
-              Documentation
-            </Link>
-            <div className={"ui item dropdown"}>
-              <div className={"text"}>{this.state.userName}</div>
-              <i className={"dropdown icon"} />
-              <div className={"menu"}>
-                <div className={"item"} onClick={this.tryLogout}>
-                  <span>Logout</span>
-                </div>
+          <Link to="/documentation" className={classNavDocs}>
+            Documentation
+          </Link>
+        </div>
+          <div className={"ui item dropdown"}>
+            <div className={"text"}>{this.state.userName}</div>
+            <i className={"dropdown icon"} />
+            <div className={"menu"}>
+              <div className={"item"} onClick={this.tryLogout}>
+                <span>Log Out</span>
               </div>
             </div>
           </div>

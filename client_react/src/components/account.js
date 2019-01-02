@@ -18,7 +18,7 @@ class Account extends Component {
           <div className={"four wide column"} style={{ padding: "0" }}>
             <SidebarMain page={"account"} />
           </div>
-          <div className={"twelve wide column"} style={{ padding: "0" }}>
+          <div className={"ten wide column"} style={{ padding: "0" }}>
             <div className={"account"}>
               <h1>Account</h1>
               <BriefInfo />

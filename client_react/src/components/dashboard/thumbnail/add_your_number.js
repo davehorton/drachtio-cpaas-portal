@@ -62,7 +62,8 @@ class AddYourNumber extends Component {
             </div>
             <div className={"six wide right floated column"}>
               <button
-                className={"ui button left fluid"}
+                className={"ui medium button left"}
+                id={"button"}
                 onClick={this.addMyNumber}
               >
                 Save

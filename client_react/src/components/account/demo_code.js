@@ -38,7 +38,7 @@ class DemoCode extends Component {
               <i className={iconClass} />
             </div>
             <br />
-            <Link to={"#"}>Don't have a Demo Code? Request One</Link>
+            <Link to={"#"} style={{color: '#d91c5c'}}>Don't have a Demo Code? Request One</Link>
           </div>
         </div>
       </div>

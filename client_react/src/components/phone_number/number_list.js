@@ -32,23 +32,17 @@ class NumberList extends Component {
           checked: false
         }
       ],
-
       showModalReleaseNumbers: false,
       releaseList: [],
       showModalAssociateApp: false
     };
-
-    this.selectAll = this.selectAll.bind(this);
-    this.itemCheckboxChanged = this.itemCheckboxChanged.bind(this);
-    this.onAssociateApp = this.onAssociateApp.bind(this);
-
-    this.onReleaseNumbers = this.onReleaseNumbers.bind(this);
-    this.completeNumberList = this.completeNumberList.bind(this);
   }
-  componentWillMount() {
+
+  componentWillMount () {
     this.completeNumberList();
   }
-  completeNumberList() {
+  
+  completeNumberList = () => {
     let list = this.props.list;
     let numberList = [];
     for (let i in list) {
@@ -64,11 +58,12 @@ class NumberList extends Component {
       numberList: numberList
     });
   }
+
   componentDidMount() {
     $(".ui.checkbox").checkbox();
   }
 
-  selectAll() {
+  selectAll = () => {
     let tmpNumberList = [];
 
     for (let i in this.state.numberList) {
@@ -87,7 +82,7 @@ class NumberList extends Component {
     });
   }
 
-  itemCheckboxChanged(e) {
+  itemCheckboxChanged = (e) => {
     let tmpNumberList = this.state.numberList;
     for (let i in tmpNumberList) {
       if (e.number === tmpNumberList[i].number) {
@@ -97,14 +92,14 @@ class NumberList extends Component {
     this.setState({ numberList: tmpNumberList });
   }
 
-  onAssociateApp() {
+  onAssociateApp = () => {
     console.log("associate app");
     this.setState({
       showModalAssociateApp: true
     });
   }
 
-  onReleaseNumbers() {
+  onReleaseNumbers = () => {
     console.log("release numbers");
     let list = [];
     for (let i in this.state.numberList) {
@@ -146,6 +141,7 @@ class NumberList extends Component {
               <button
                 className={"ui button right floated large"}
                 style={styleButton}
+                id={"button"}
                 onClick={this.onAssociateApp}
               >
                 Associate an App
@@ -153,6 +149,7 @@ class NumberList extends Component {
               <button
                 className={"ui button right floated large"}
                 style={styleButton}
+                id={"button"}
                 onClick={this.onReleaseNumbers}
               >
                 Release Number

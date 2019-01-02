@@ -12,7 +12,7 @@ class Applications extends Component {
           <div className={"four wide column"} style={{ padding: "0" }}>
             <SidebarMain page={"apps"} />
           </div>
-          <div className={"twelve wide column"} style={{ padding: "0" }}>
+          <div className={"ten wide column"} style={{ padding: "0" }}>
             <div className={"applications"}>
               <h1>Applications</h1>
             </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axiosAuth from '../../utils/axios'
+import { ModalAcquireNumber } from './modal_acquire_number';
 
 const $ = window.$;
 const serverApiUrl = 'http://localhost:3000/api/phone_numbers/';
@@ -14,18 +15,12 @@ class WizardAcquireNumber extends Component{
             acquiredNumber : 'asdf',
             currentStateSelect : ''
         }
-
-        this.onAcquireNumber = this.onAcquireNumber.bind(this);
-        this.getAvailableNumbers = this.getAvailableNumbers.bind(this);
-        this.onAreaCodeChanged = this.onAreaCodeChanged.bind(this);
-
-        this.getAvailableNumbers();
     }
 
-    onAcquireNumber(num){
+    onAcquireNumber = (num) => {
         this.setState({
-            numberConfirmed : true,
-            acquiredNumber : num.number
+            numberConfirmed: true,
+            acquiredNumber: num.number
         });
         axiosAuth().request({
             method : 'post',
@@ -40,24 +35,22 @@ class WizardAcquireNumber extends Component{
         })
     }
 
-    getAvailableNumbers(){
+    getAvailableNumbers = () => {
       axiosAuth().get(serverApiUrl+'available-phone-numbers')
-            .then(response=>{
+            .then(response => {
                 let list = response.data.list;
-                if(list === undefined || list.length === 0){
-
+                if (list === undefined || list.length === 0) {
+                    console.log("No numbers available")
                 }
                 else{
                     this.setState({
                         numberData : list
                     })
                     console.log('data saved ',this.state.numberData);
-                    
-                    //get Area List
-                    //get State List
+
                     let areaList = [];
                     let stateList = [];
-                    for(let i in list){
+                    for (let i in list) {
                         let item = list[i];
                         stateList.push(item.state);
                         for(let j in item.areaCode){
@@ -72,11 +65,13 @@ class WizardAcquireNumber extends Component{
                 }
             })
     }
-    componentDidMount(){
+
+    componentDidMount() {
         $('.ui.dropdown').dropdown();
+        this.getAvailableNumbers();
     }
 
-    onAreaCodeChanged(e){
+    onAreaCodeChanged = (e) => {
         let areaCode = e.target.value;
         let availableNumbers = [];
         let currentStateSelect;
@@ -93,12 +88,18 @@ class WizardAcquireNumber extends Component{
         }
         this.setState({
             availableNumbers : availableNumbers,
-            currentStateSelect : currentStateSelect
+            currentStateSelect : currentStateSelect,
+            showNumbers: false
         })
         console.log(currentStateSelect);
         $('#select-state').val(currentStateSelect);
     }
-    render(){
+
+    onStateChange = () => {
+        this.setState({showNumbers : false});
+    }
+
+    render() {
         let AreaSelect;
         let StateSelect;
 
@@ -112,8 +113,7 @@ class WizardAcquireNumber extends Component{
             );
         }
 
-        if(this.state.stateList)
-        {
+        if (this.state.stateList) {
             StateSelect = this.state.stateList.map(
                 (item,i) => {
                     return<option key={i} value={item}>{item}</option>
@@ -122,8 +122,8 @@ class WizardAcquireNumber extends Component{
         }
 
         let numberList = "";
-        if(this.state.showNumbers === true && this.state.availableNumbers)
-        {
+        
+        if (this.state.showNumbers === true && this.state.availableNumbers) {
             numberList = this.state.availableNumbers.map((number,i)=>{
                 return(
                     <div key={i} className={'phone-item'}>
@@ -132,7 +132,7 @@ class WizardAcquireNumber extends Component{
                                 <p>{number}</p>
                             </div>
                             <div className={'eight wide column'}>
-                                <button className={'ui button right floated'} onClick={() => {this.onAcquireNumber({number})}}>
+                                <button id="button" className={'ui button right floated'} onClick={() => {this.onAcquireNumber({number})}}>
                                     Acquire
                                 </button>
                             </div>
@@ -158,13 +158,13 @@ class WizardAcquireNumber extends Component{
                                     </select>
                                 </div>
                                 <div className={'six wide column'}>
-                                    <select id="select-state" className={'ui search dropdown fluid'} value={this.state.currentStateSelect} onChange={()=>{}}>
+                                    <select id="select-state" className={'ui search dropdown fluid'} value={this.state.currentStateSelect} onChange={this.onStateChange}>
                                         <option value="">State</option>
                                         {StateSelect}
                                     </select>
                                 </div>
                                 <div className={'five wide column'}>
-                                    <button className={'ui button large fluid'} onClick={()=>{this.setState({showNumbers : true})}}>
+                                    <button id="button" className={'ui button large fluid'} onClick={()=>{this.setState({showNumbers : true})}}>
                                         See available numbers
                                     </button>
                                 </div>
@@ -192,7 +192,7 @@ class WizardAcquireNumber extends Component{
                                 <button className={'ui button large fluid'} onClick={this.props.onConfirmSkipped}>Skip</button>
                             </div>
                             <div className={'eight wide column'}>
-                                <button className={'ui button large fluid'}>Associate an App</button>
+                                <button className={'ui button large fluid'} id={"button"}>Associate an App</button>
                             </div>
                         </div>
                     </div>
@@ -200,6 +200,7 @@ class WizardAcquireNumber extends Component{
             </div>
         )
         let currentElement;
+        
         if(this.state.numberConfirmed === false)
             currentElement = fullNumberList;
         else

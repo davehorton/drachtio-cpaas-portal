@@ -8,7 +8,7 @@ class AcquireNumber extends Component {
   render() {
     let bNumberExist;
     if (this.props.numberExist === false)
-      bNumberExist = <p>You have no Number</p>;
+      bNumberExist = <p>You currently have no phone number</p>;
     return (
       <div>
         <div className={"ui text"}>
@@ -17,6 +17,7 @@ class AcquireNumber extends Component {
             <br />
             <button
               className={"ui button large"}
+              id={"button"}
               onClick={this.props.onRequestAcquire}
             >
               Acquire a phone number

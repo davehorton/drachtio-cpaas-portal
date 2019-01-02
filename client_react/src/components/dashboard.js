@@ -71,7 +71,7 @@ class Dashboard extends Component {
           <div className={"four wide column"} style={{ padding: "0" }}>
             <SidebarMain page={"dashboard"} />
           </div>
-          <div className={"twelve wide column"} style={{ padding: "0" }}>
+          <div className={"ten wide column"} style={{ padding: "0" }}>
             <div className={"dashboard"}>{currentElement}</div>
           </div>
         </div>

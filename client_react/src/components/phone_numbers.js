@@ -16,18 +16,16 @@ class PhoneNumbers extends Component {
       numberList: [],
       showAcquireWizard: false
     };
-    this.startAcquireNumber = this.startAcquireNumber.bind(this);
-    this.getMyNumbers = this.getMyNumbers.bind(this);
   }
 
-  startAcquireNumber() {
+  startAcquireNumber = () => {
     console.log("start acquiring number");
     this.setState({
       showAcquireWizard: true
     });
   }
 
-  getMyNumbers() {
+  getMyNumbers = () => {
     axios
       .post(
         serverApiUrl + "get-my-numbers",
@@ -70,6 +68,7 @@ class PhoneNumbers extends Component {
       currentElement = (
         <div>
           <h1>Phone Numbers</h1>
+          <i className="big circular icon plus" id="plus-icon"/>
           {numberListComponent}
           <AcquireNumber
             numberExist={bNumberExist}
@@ -98,7 +97,7 @@ class PhoneNumbers extends Component {
           <div className={"four wide column"} style={{ padding: "0" }}>
             <SidebarMain page={"phone_num"} />
           </div>
-          <div className={"twelve wide column"} style={{ padding: "0" }}>
+          <div className={"ten wide column"} style={{ padding: "0" }}>
             <div className={"phone-num"}>{currentElement}</div>
           </div>
         </div>

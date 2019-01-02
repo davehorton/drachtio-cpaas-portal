@@ -62,7 +62,7 @@ class ModalReleaseNumbers extends Component {
           <br />
           <div className={"actions"}>
             <div className={"ui button deny"}>Cancel</div>
-            <div className={"ui button approve"}>Confirm</div>
+            <div className={"ui button approve"} id={"button"}>Confirm</div>
           </div>
         </div>
       </div>
