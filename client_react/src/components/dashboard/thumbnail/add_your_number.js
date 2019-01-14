@@ -3,6 +3,7 @@ import axiosAuth from '../../../utils/axios'
 
 const serverApiUrl = "http://localhost:3000/api/subscribers/";
 const $ = window.$;
+
 class AddYourNumber extends Component {
   constructor(props) {
     super(props);
@@ -10,15 +11,13 @@ class AddYourNumber extends Component {
       saved: false,
       phoneNumber: ''
     };
-    this.addMyNumber = this.addMyNumber.bind(this);
-    this.checkMyNumber = this.checkMyNumber.bind(this);
   }
 
   componentWillMount() {
     this.checkMyNumber();
   }
 
-  addMyNumber() {
+  addMyNumber = () => {
     this.setState({
       saved: true
     });
@@ -29,7 +28,7 @@ class AddYourNumber extends Component {
       });
   }
 
-  checkMyNumber() {
+  checkMyNumber = () => {
     axiosAuth()
     .get(`${serverApiUrl}me`)
     .then(response => this.setState({
@@ -54,9 +53,7 @@ class AddYourNumber extends Component {
                   type={"text"}
                   placeholder={"(999) 999-9999"}
                   value={this.state.phoneNumber || ''}
-                  onChange={e => {
-                    this.setState({ phoneNumber: e.target.value });
-                  }}
+                  onChange={e => { this.setState({ phoneNumber: e.target.value });}}
                 />
               </div>
             </div>
@@ -75,12 +72,8 @@ class AddYourNumber extends Component {
     else
       currentElement = (
         <div
-          className={
-            "ui stripe segment signup aligned custom-anim-move-to-account"
-          }
-          onClick={() => {
-            $(".custom-anim-move-to-account").slideUp(700);
-          }}
+          className={"ui stripe segment signup aligned custom-anim-move-to-account"}
+          onClick={() => {$(".custom-anim-move-to-account").slideUp(700);}}
         >
           <h3 className={"ui header"}>
             The following number is successfully saved

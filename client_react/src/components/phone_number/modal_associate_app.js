@@ -6,23 +6,19 @@ const customStyle = {
   marginTop: "1rem",
   marginBottom: "1rem"
 };
+
 class ModalAssociateApp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       appList: [
-        {
-          name: "Google DialogFlow-Project 1"
-        },
-        {
-          name: "Google DialogFlow-Project 2"
-        },
-        {
-          name: "Google DialogFlow-Project 3"
-        }
+        { name: "Google DialogFlow-Project 1" },
+        { name: "Google DialogFlow-Project 2" },
+        { name: "Google DialogFlow-Project 3"}
       ]
     };
   }
+
   componentDidMount() {
     // let _this = this;
     $(".ui.modal").modal({
@@ -40,9 +36,9 @@ class ModalAssociateApp extends Component {
         return true;
       }
     });
-
     $(".ui.radio.checkbox").checkbox();
   }
+
   render() {
     let appListElem = this.state.appList.map((item, i) => {
       return (
@@ -59,6 +55,7 @@ class ModalAssociateApp extends Component {
         </div>
       );
     });
+    
     return (
       <div className={"ui modal associate-app tiny"}>
         <div className={"content"} style={{ textAlign: "center" }}>

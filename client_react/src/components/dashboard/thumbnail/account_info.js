@@ -12,14 +12,13 @@ class AccountInfo extends Component {
         current_plan: ""
       }
     };
-    this.getAccountInfo = this.getAccountInfo.bind(this);
   }
 
   componentWillMount() {
     this.getAccountInfo();
   }
 
-  getAccountInfo() {
+  getAccountInfo = () => {
     axiosAuth()
       .get(`${serverApiUrl}me`)
       .then(response => this.setState({info: response.data}));

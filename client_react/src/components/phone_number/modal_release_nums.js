@@ -30,6 +30,7 @@ class ModalReleaseNumbers extends Component {
       }
     }
   }
+
   componentDidMount() {
     let _this = this;
     $(".ui.modal")
@@ -50,6 +51,7 @@ class ModalReleaseNumbers extends Component {
       .modal("show");
     console.log("phone numbers to release are below ", this.state.numberList);
   }
+  
   render() {
     let numberListElem = this.state.numberList.map((item, i) => {
       return <h3 key={i}>{item.number}</h3>;

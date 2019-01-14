@@ -163,18 +163,13 @@ class NumberList extends Component {
               <div className={"ui middle aligned stackable grid"}>
                 <div className={"five wide column"}>
                   <div className={"inline field"}>
-                    <div className={"ui checkbox"} onClick={this.selectAll}>
-                      <input
-                        type={"checkbox"}
-                        tabIndex={"0"}
-                        className={"hidden"}
-                        checked={this.state.selectedAll}
-                        onChange={() => {}}
-                      />
-                      <label style={{ fontSize: "14px", color: "gray" }}>
-                        Phone Number
-                      </label>
-                    </div>
+                  <label className={"boxcontainer"}>
+                    <input type="checkbox" checked={this.state.selectedAll} onClick={this.selectAll}/>
+                    <span className={"checkmark"}></span>
+                    <label style={{ fontSize: "14px", color: "gray" }} className="phonenumber">
+                      Phone Number
+                    </label>
+                    </label>
                   </div>
                 </div>
                 <div className={"six wide column"}>

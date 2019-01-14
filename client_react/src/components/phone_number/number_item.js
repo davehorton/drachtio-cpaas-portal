@@ -22,22 +22,10 @@ class NumberItem extends Component {
         <div className={"ui middle aligned stackable grid"}>
           <div className={"five wide column"}>
             <div className={"inline field"}>
-              {/* <div className={"ui checkbox"} onClick={this.changeCheck}>
-                <input
-                  type={"checkbox"}
-                  tabIndex={"0"}
-                  className={"hidden"}
-                  checked={this.state.data.checked}
-                  onChange={() => {}}
-                  style={{backgroundColor: '#d91c5c'}}
-                />
-                 <label className="boxcontainer">{this.state.data.number} 
-                </label>
-              </div> */}
               <label className={"boxcontainer"}>
                 <input type="checkbox" checked={this.state.data.checked} onClick={this.changeCheck}/>
-                {this.state.data.number} 
                 <span className={"checkmark"}></span>
+                <p className="phonenumber">{this.state.data.number}</p>
             </label>
             </div>
           </div>

@@ -1,4 +1,11 @@
-@import url(http://fonts.googleapis.com/css?family=Work+Sans:300italic, 400italic, 700italic, 300, 400, 700);
+@import url(
+  http://fonts.googleapis.com/css?family=Work+Sans:300italic,
+  400italic,
+  700italic,
+  300,
+  400,
+  700
+);
 
 html,
 body {
@@ -139,7 +146,8 @@ h1.header {
   cursor: pointer;
   display: block;
   border: 0;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.0783231), 0px 0px 4px rgba(0, 0, 0, 0.0783231);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.0783231),
+    0px 0px 4px rgba(0, 0, 0, 0.0783231);
   border-radius: 8px;
   font-family: Work Sans;
   font-style: normal;
@@ -256,9 +264,9 @@ h1.header {
   }
 }
 
-.custom-anim-move-to-account {
+/* .custom-anim-move-to-account {
   /* animation: fade-out 2s forwards; */
-}
+
 .dashboard .wizard-step .ui.segment .btn-custom {
   text-align: center;
 }
@@ -270,11 +278,13 @@ h1.header {
 
 .link.back {
   cursor: pointer;
+  color: #d91c5c;
+  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  width: fit-content;
 }
 
 .link.back:hover {
   transition: 0.7s;
-  color: #666;
 }
 
 .account {
@@ -294,8 +304,8 @@ h1.header {
   font-size: 16px;
 }
 
-.account .word.minute {
-}
+/* .account .word.minute {
+} */
 
 .account .word.minute span {
   font-size: 32px;
@@ -313,8 +323,8 @@ h1.header {
   font-size: 16px;
 }
 
-.phone-num .availables {
-}
+/* .phone-num .availables {
+} */
 
 .phone-num .availables .phone-item {
   padding: 1rem 2rem;
@@ -570,12 +580,15 @@ Checkbox stuff
   left: 15px;
   height: 17px;
   width: 17px;
-  background-color: #eee;
+  background-color: #fff;
+  border-color: #eee;
+  border-style: solid;
+  border-width: thin;
 }
 
 /* On mouse-over, add a grey background color */
 .boxcontainer:hover input ~ .checkmark {
-  background-color: #ccc;
+  background-color: #d91c5c;
 }
 
 /* When the checkbox is checked, add a blue background */
@@ -606,4 +619,33 @@ Checkbox stuff
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.phonenumber {
+  padding-left: 25px;
+}
+
+/* Path */
+.dialogFlow {
+  position: absolute;
+  left: 15.62%;
+  right: 16.29%;
+  top: 24.98%;
+  bottom: 6.32%;
+
+  background: #d91c5c;
+}
+
+/* Path */
+
+.dialogFlow2 {
+  position: absolute;
+  left: 15.62%;
+  right: 16.29%;
+  top: 5.35%;
+  bottom: 55.4%;
+
+  background: #d91c5c;
+  mix-blend-mode: normal;
+  opacity: 0.6;
 }

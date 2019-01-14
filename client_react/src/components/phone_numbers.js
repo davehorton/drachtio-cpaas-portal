@@ -68,7 +68,7 @@ class PhoneNumbers extends Component {
       currentElement = (
         <div>
           <h1>Phone Numbers</h1>
-          <i className="big circular icon plus" id="plus-icon"/>
+          {/* <i className="big circular icon plus" id="plus-icon"/> */}
           {numberListComponent}
           <AcquireNumber
             numberExist={bNumberExist}
@@ -79,7 +79,7 @@ class PhoneNumbers extends Component {
     else {
       currentElement = (
         <WizardAcquireNumber
-          onBackword={() => {
+          onBackward={() => {
             this.setState({ showAcquireWizard: false });
           }}
           onConfirmSkipped={() => {
