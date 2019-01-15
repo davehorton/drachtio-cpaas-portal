@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="44px" height="56px" viewBox="0 0 44 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/GDF</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M41.6964706,10.8898462 L23.6823529,0.508307692 C22.5176471,-0.163692308 21.0682353,-0.163692308 19.9035294,0.508307692 L1.88941176,10.8898462 C0.724705882,11.5704615 0.00862745098,12.8110769 0.00862745098,14.1636923 L0.00862745098,34.944 C0.00862745098,36.288 0.724705882,37.5286154 1.88941176,38.2092308 L10.905098,43.4129231 L10.905098,54.0184615 C10.905098,54.6473846 11.4141176,55.1470769 12.0439216,55.1470769 C12.2423529,55.1470769 12.4321569,55.0953846 12.6047059,54.992 L41.7223529,38.2178462 C42.8870588,37.5458462 43.6117647,36.3052308 43.6031373,34.9526154 L43.6031373,14.1636923 C43.5945098,12.8024615 42.8698039,11.5618462 41.6964706,10.8898462 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="App_UI_13" transform="translate(-700.000000, -554.000000)">
+            <g id="Group-10" transform="translate(288.000000, 438.000000)">
+                <g id="Group-11" transform="translate(301.000000, 88.000000)">
+                    <g id="Group-12">
+                        <g id="Icons/GDF_Magenta" transform="translate(101.000000, 24.000000)">
+                            <g id="Icons/GDF">
+                                <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="64" height="64"></rect>
+                                <g id="Clipped" transform="translate(10.000000, 4.000000)">
+                                    <mask id="mask-2" fill="white">
+                                        <use xlink:href="#path-1"></use>
+                                    </mask>
+                                    <g id="path_1"></g>
+                                    <g id="Group" mask="url(#mask-2)">
+                                        <g transform="translate(0.000000, -0.861538)" id="Path">
+                                            <polygon fill="#D91C5C" points="0 12.8455385 0 37.968 10.8964706 44.2486154 10.8964706 56.8184615 43.5772549 37.968 43.5772549 12.8455385 21.7929412 25.4067692"></polygon>
+                                            <polygon fill="#E8779D" points="0 12.8455385 21.7929412 0.284307692 43.5772549 12.8455385 21.7929412 25.4067692"></polygon>
+                                            <polygon fill="#BF360C" opacity="0.1" points="43.0682353 12.544 21.4133333 25.0276923 0.138039216 12.7593846 0 12.8455385 21.7929412 25.4067692 43.5772549 12.8455385"></polygon>
+                                            <polygon fill="#FFFFFF" opacity="0.1" points="21.7929412 25.4067692 0.138039216 12.9230769 0 13.0006154 21.7929412 25.5618462"></polygon>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

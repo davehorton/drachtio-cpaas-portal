@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import googleDialogPink from "../../images/googleDialogPink.png";
-import googleDialogGray from "../../images/googleDialogGray.png";
-import webCallbackGray from "../../images/webCallbackGray.png";
-import webCallbackPink from "../../images/webCallbackPink.png";
+import GDF_Grey from "../../images/Assets_14JAN2019/Icons_Grey/GDF_Grey.png"
+import GDF_Pink from "../../images/Assets_14JAN2019/Icons_Pink/GDF_Pink.png"
+import Webcallback_Grey from "../../images/Assets_14JAN2019/Icons_Grey/Webcallback_Grey.png"
+import Webcallback_Pink from "../../images/Assets_14JAN2019/Icons_Pink/Webcallback_Pink.png"
+import GDF_Web_Grey from "../../images/Assets_14JAN2019/Icons_Grey/GDF_Web_Grey.png"
+import GDF_Web_Pink from "../../images/Assets_14JAN2019/Icons_Pink/GDF_Web_Pink.png"
 
 export class CreateApplication extends Component {
   constructor(props) {
@@ -18,14 +20,6 @@ export class CreateApplication extends Component {
 
   render() {
     const { selectedOption } = this.state;
-    const iconStyle = {
-      position: "absolute",
-      left: "45%",
-      right: "45%",
-      top: "15%",
-      bottom: "75%",
-      color: selectedOption === 3 ? "#d91c5c" : "#CCCCCC"
-    };
     return (
       <>
         <h1 style={{ fontFamily: "Work Sans" }}>Create a new application</h1>
@@ -47,7 +41,7 @@ export class CreateApplication extends Component {
                   <div style={{ height: "30%" }}>
                     <img
                       src={
-                        selectedOption === 1 ? webCallbackPink : webCallbackGray
+                        selectedOption === 1 ? Webcallback_Pink : Webcallback_Grey
                       }
                       alt="callback icon"
                       style={callbackStyle}
@@ -70,8 +64,8 @@ export class CreateApplication extends Component {
                     <img
                       src={
                         selectedOption === 2
-                          ? googleDialogPink
-                          : googleDialogGray
+                          ? GDF_Pink
+                          : GDF_Grey
                       }
                       alt="google dialog icon"
                       style={dialogStyle}
@@ -92,18 +86,10 @@ export class CreateApplication extends Component {
                   <div style={{ height: '30%' }}>
                   <img
                     src={
-                      selectedOption === 3 ? googleDialogPink : googleDialogGray
+                      selectedOption === 3 ? GDF_Web_Pink : GDF_Web_Grey
                     }
                     alt="google dialog icon"
                     style={dialogStyle}
-                  />
-                  <i className="icon plus" style={iconStyle} />
-                  <img
-                    src={
-                      selectedOption === 3 ? webCallbackPink : webCallbackGray
-                    }
-                    alt="callback icon"
-                    style={callbackStyle}
                   />
                   </div>
                   <h3 style={titleStyle}>
