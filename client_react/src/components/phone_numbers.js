@@ -23,7 +23,7 @@ class PhoneNumbers extends Component {
     this.setState({
       showAcquireWizard: true
     });
-  }
+  };
 
   getMyNumbers = () => {
     axios
@@ -46,20 +46,25 @@ class PhoneNumbers extends Component {
           });
         }
       });
-  }
+  };
 
   componentDidMount() {
     this.getMyNumbers();
   }
 
+  updateList = () => {
+    window.location.reload();
+  };
+
   render() {
     let bNumberExist;
-
     let currentElement;
     let numberListComponent;
     if (this.state.myNumbers && this.state.myNumbers.length !== 0) {
       bNumberExist = true;
-      numberListComponent = <NumberList list={this.state.myNumbers} />;
+      numberListComponent = (
+        <NumberList list={this.state.myNumbers} updateList={this.updateList} />
+      );
     } else {
       bNumberExist = false;
     }

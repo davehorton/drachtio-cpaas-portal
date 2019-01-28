@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import GDF_Grey from "../../images/Assets_14JAN2019/Icons_Grey/GDF_Grey.png"
-import GDF_Pink from "../../images/Assets_14JAN2019/Icons_Pink/GDF_Pink.png"
-import Webcallback_Grey from "../../images/Assets_14JAN2019/Icons_Grey/Webcallback_Grey.png"
-import Webcallback_Pink from "../../images/Assets_14JAN2019/Icons_Pink/Webcallback_Pink.png"
-import GDF_Web_Grey from "../../images/Assets_14JAN2019/Icons_Grey/GDF_Web_Grey.png"
-import GDF_Web_Pink from "../../images/Assets_14JAN2019/Icons_Pink/GDF_Web_Pink.png"
+import GDF_Grey from "../../images/Assets_14JAN2019/Icons_Grey/GDF_Grey.png";
+import GDF_Pink from "../../images/Assets_14JAN2019/Icons_Pink/GDF_Pink.png";
+import Webcallback_Grey from "../../images/Assets_14JAN2019/Icons_Grey/Webcallback_Grey.png";
+import Webcallback_Pink from "../../images/Assets_14JAN2019/Icons_Pink/Webcallback_Pink.png";
+import GDF_Web_Grey from "../../images/Assets_14JAN2019/Icons_Grey/GDF_Web_Grey.png";
+import GDF_Web_Pink from "../../images/Assets_14JAN2019/Icons_Pink/GDF_Web_Pink.png";
 
 export class CreateApplication extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOptiontion: 0
+      selectedOption: 0
     };
   }
 
@@ -18,11 +18,34 @@ export class CreateApplication extends Component {
     this.setState({ selectedOption: option });
   };
 
+  onNameChange = (event) => {
+    this.setState({ appName: event.target.value})
+  }
+
+  onURLChange = (event) => {
+    this.setState({ url: event.target.value})
+  }
+
   render() {
+    console.log('STATE', this.state);
     const { selectedOption } = this.state;
     return (
       <>
-        <h1 style={{ fontFamily: "Work Sans" }}>Create a new application</h1>
+        <h1>Create a new application</h1>
+        <div
+          className={"ui stripe segment aligned"}
+          style={{ height: "136px", padding: "3em" }}
+        >
+          <div
+            className="ui left aligned container"
+            style={{ fontSize: "20px", marginBottom: "20px" }}
+          >
+            Name you application
+          </div>
+          <div className="ui input" style={{ width: "95%" }}>
+            <input type="text" placeholder="My App...." onChange={this.onNameChange}/>
+          </div>
+        </div>
         <div className={"ui stripe segment aligned"} style={style}>
           <div
             className="ui left aligned container"
@@ -41,14 +64,16 @@ export class CreateApplication extends Component {
                   <div style={{ height: "30%" }}>
                     <img
                       src={
-                        selectedOption === 1 ? Webcallback_Pink : Webcallback_Grey
+                        selectedOption === 1
+                          ? Webcallback_Pink
+                          : Webcallback_Grey
                       }
                       alt="callback icon"
                       style={callbackStyle}
                     />
                   </div>
                   <h4 style={titleStyle}>Web Callback</h4>
-                  <p>
+                  <p style={textStyle}>
                     Incoming calls will connect to your web callback and allow
                     you to control the call
                   </p>
@@ -62,17 +87,13 @@ export class CreateApplication extends Component {
                 >
                   <div style={{ height: "30%" }}>
                     <img
-                      src={
-                        selectedOption === 2
-                          ? GDF_Pink
-                          : GDF_Grey
-                      }
+                      src={selectedOption === 2 ? GDF_Pink : GDF_Grey}
                       alt="google dialog icon"
                       style={dialogStyle}
                     />
                   </div>
                   <h4 style={titleStyle}>Google Dialogflow</h4>
-                  <p>
+                  <p style={textStyle}>
                     Incoming calls will be connected to your dialogflow project
                   </p>
                 </div>
@@ -83,19 +104,18 @@ export class CreateApplication extends Component {
                   style={selectedOption === 3 ? selectedAppStyle : appStyle}
                   onClick={() => this.onSelect(3)}
                 >
-                  <div style={{ height: '30%' }}>
-                  <img
-                    src={
-                      selectedOption === 3 ? GDF_Web_Pink : GDF_Web_Grey
-                    }
-                    alt="google dialog icon"
-                    style={dialogStyle}
-                  />
+                  <div style={{ height: "30%" }}>
+                    <img
+                      src={selectedOption === 3 ? GDF_Web_Pink : GDF_Web_Grey}
+                      alt="google dialog icon"
+                      style={dialogStyle}
+                    />
                   </div>
                   <h3 style={titleStyle}>
                     Google Dialogflow <br /> + Web callback
                   </h3>
-                  <p style={{ paddingTop: "20px" }}>
+                  <br />
+                  <p style={textStyle}>
                     Incoming calls will be connected to your dialogflow project,
                     and augmented call control will be enabled via your web
                     callback
@@ -105,11 +125,26 @@ export class CreateApplication extends Component {
             </div>
           </div>
         </div>
+        <div
+          className={"ui stripe segment aligned"}
+          style={{ height: "136px", padding: "3em" }}
+        >
+          <div
+            className="ui left aligned container"
+            style={{ fontSize: "20px", marginBottom: "20px" }}
+          >
+            Web Callback URL
+          </div>
+          <div className="ui input" style={{ width: "95%" }}>
+            <input type="text" placeholder="www.myurl.com" onChange={this.onURLChange}/>
+          </div>
+        </div>
         <div className={"ui stripe segment aligned"} style={{ height: "64px" }}>
           <button
             className={"ui button large"}
             id={"button"}
             style={buttonStyle}
+            disabled={this.state.selectedOption === 0}
           >
             Continue
           </button>
@@ -147,6 +182,13 @@ const selectedAppStyle = {
   color: "#d91c5c",
   borderColor: "#d91c5c",
   borderRadius: "8px"
+};
+
+const textStyle = {
+  fontSize: "14px",
+  fontStyle: "normal",
+  fontWeight: "normal",
+  lineHeight: "20px"
 };
 
 const titleStyle = {

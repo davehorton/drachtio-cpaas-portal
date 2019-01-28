@@ -12,6 +12,7 @@ body {
   height: 100%;
   background: #eee;
   color: #565656;
+  font-family: 'Work Sans';
 }
 
 .bg-color-gray {
@@ -82,6 +83,10 @@ h1.header {
 .quote.stripe.segment .grid .column {
   padding-top: 5em;
   padding-bottom: 5em;
+}
+
+.ui-stripe-segment-aligned {
+  font-family: Work Sans;
 }
 
 .footer.segment {
@@ -279,7 +284,7 @@ h1.header {
 .link.back {
   cursor: pointer;
   color: #d91c5c;
-  font-family: Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-family: Work Sans, Lato, "Helvetica Neue", Arial, Helvetica, sans-serif;
   width: fit-content;
 }
 
@@ -494,7 +499,7 @@ h1.header {
 }
 
 #button:hover {
-  opacity: 0.9;
+  background-color: #e84a7f;
   cursor: pointer;
 }
 
@@ -648,4 +653,26 @@ Checkbox stuff
   background: #d91c5c;
   mix-blend-mode: normal;
   opacity: 0.6;
+}
+
+.ui-input{
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+  border: 1px solid #E0E0E0;
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 95%;
+}
+
+h1 {
+  font-family: "Work Sans";
+}
+
+.item {
+  position: relative;
+  z-index: 0;
+  opacity: 1.0;
 }

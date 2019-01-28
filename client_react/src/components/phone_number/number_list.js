@@ -2,9 +2,10 @@ import React, { Component } from "react";
 
 import NumberItem from "./number_item";
 import ModalReleaseNumbers from "./modal_release_nums";
-import ModalAssociateApp from "./modal_associate_app";
+import { AssociateApp } from "./associate_app";
 
 const $ = window.$;
+
 const styleNumList = {
   marginBottom: "2rem"
 };
@@ -18,30 +19,16 @@ class NumberList extends Component {
     super(props);
     this.state = {
       selectedAll: false,
-      numberList: [
-        {
-          number: "+1 (559) 545-0935",
-          associatedApp: "",
-          otherTags: "",
-          checked: false
-        },
-        {
-          number: "+1 (559) 545-0938",
-          associatedApp: "Google DialogFlow Project 1",
-          otherTags: "",
-          checked: false
-        }
-      ],
+      numberList: [],
       showModalReleaseNumbers: false,
-      releaseList: [],
-      showModalAssociateApp: false
+      releaseList: []
     };
   }
 
-  componentWillMount () {
+  componentWillMount() {
     this.completeNumberList();
   }
-  
+
   completeNumberList = () => {
     let list = this.props.list;
     let numberList = [];
@@ -57,11 +44,22 @@ class NumberList extends Component {
     this.setState({
       numberList: numberList
     });
-  }
+  };
 
   componentDidMount() {
     $(".ui.checkbox").checkbox();
   }
+
+  isOnlyOneNumberSelected = () => {
+    const selected = this.state.numberList.filter(num => {
+      return num.checked;
+    });
+    if (selected.length === 1) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   selectAll = () => {
     let tmpNumberList = [];
@@ -80,9 +78,9 @@ class NumberList extends Component {
     this.setState({
       numberList: tmpNumberList
     });
-  }
+  };
 
-  itemCheckboxChanged = (e) => {
+  itemCheckboxChanged = e => {
     let tmpNumberList = this.state.numberList;
     for (let i in tmpNumberList) {
       if (e.number === tmpNumberList[i].number) {
@@ -90,14 +88,7 @@ class NumberList extends Component {
       }
     }
     this.setState({ numberList: tmpNumberList });
-  }
-
-  onAssociateApp = () => {
-    console.log("associate app");
-    this.setState({
-      showModalAssociateApp: true
-    });
-  }
+  };
 
   onReleaseNumbers = () => {
     console.log("release numbers");
@@ -111,9 +102,22 @@ class NumberList extends Component {
       showModalReleaseNumbers: true,
       releaseList: list
     });
-  }
+  };
+
+  getSelectedNumber = () => {
+    const selected = this.state.numberList.find(num => {
+      return num.checked;
+    });
+    if (selected) {
+      return this.props.list.find(num => {
+        return num.id === selected.id;
+      });
+    }
+    return;
+  };
 
   render() {
+    console.log("state", this.state);
     let numberItems = this.state.numberList.map((item, i) => {
       return (
         <NumberItem
@@ -124,15 +128,11 @@ class NumberList extends Component {
       );
     });
 
-    let modalReleaseNumbers = "";
+    let modalReleaseNumbers;
     if (this.state.showModalReleaseNumbers === true)
       modalReleaseNumbers = (
         <ModalReleaseNumbers list={this.state.releaseList} />
       );
-
-    let modalAssociateApp = "";
-    if (this.state.showModalAssociateApp === true)
-      modalAssociateApp = <ModalAssociateApp />;
     return (
       <div className={"number-list"}>
         <div className={"ui text"}>
@@ -142,18 +142,22 @@ class NumberList extends Component {
                 className={"ui button right floated large"}
                 style={styleButton}
                 id={"button"}
-                onClick={this.onAssociateApp}
-              >
-                Associate an App
-              </button>
-              <button
-                className={"ui button right floated large"}
-                style={styleButton}
-                id={"button"}
                 onClick={this.onReleaseNumbers}
+                disabled={
+                  !this.state.numberList.find(num => {
+                    return num.checked;
+                  })
+                }
               >
-                Release Number
+                Release
               </button>
+              {
+                <AssociateApp
+                  disabled={!this.isOnlyOneNumberSelected()}
+                  selectedNumber={this.getSelectedNumber()}
+                  updateList={this.props.updateList}
+                />
+              }
             </div>
             <br />
             <br />
@@ -163,12 +167,19 @@ class NumberList extends Component {
               <div className={"ui middle aligned stackable grid"}>
                 <div className={"five wide column"}>
                   <div className={"inline field"}>
-                  <label className={"boxcontainer"}>
-                    <input type="checkbox" checked={this.state.selectedAll} onClick={this.selectAll}/>
-                    <span className={"checkmark"}></span>
-                    <label style={{ fontSize: "14px", color: "gray" }} className="phonenumber">
-                      Phone Number
-                    </label>
+                    <label className={"boxcontainer"}>
+                      <input
+                        type="checkbox"
+                        checked={this.state.selectedAll}
+                        onClick={this.selectAll}
+                      />
+                      <span className={"checkmark"} />
+                      <label
+                        style={{ fontSize: "14px", color: "gray" }}
+                        className="phonenumber"
+                      >
+                        Phone Number
+                      </label>
                     </label>
                   </div>
                 </div>
@@ -188,7 +199,6 @@ class NumberList extends Component {
           </div>
         </div>
         {modalReleaseNumbers}
-        {modalAssociateApp}
       </div>
     );
   }
