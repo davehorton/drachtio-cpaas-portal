@@ -6,7 +6,7 @@ const style = {
 
 class AcquireNumber extends Component {
   render() {
-    let bNumberExist;
+    let bNumberExist = <p style={{display: "none"}}/>;
     if (this.props.numberExist === false)
       bNumberExist = <p>You currently have no phone number</p>;
     return (
@@ -14,11 +14,11 @@ class AcquireNumber extends Component {
         <div className={"ui text"}>
           <div className={"ui stripe segment aligned"} style={style}>
             {bNumberExist}
-            <br />
             <button
               className={"ui button large"}
               id={"button"}
               onClick={this.props.onRequestAcquire}
+              style={{top: "40%", bottom: "40%"}}
             >
               Acquire a phone number
             </button>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axiosAuth from "../../utils/axios";
-// import { ModalAcquireNumber } from "./modal_acquire_number";
+import { AssociateApp } from "./associate_app";
 
 const $ = window.$;
 const serverApiUrl = "http://localhost:3000/api/phone_numbers/";
@@ -32,7 +32,7 @@ class WizardAcquireNumber extends Component {
         }
       })
       .then(function(res) {
-        console.log(res);
+        console.log("ACQUITE SUCCESS", res);
       });
   };
 
@@ -101,6 +101,7 @@ class WizardAcquireNumber extends Component {
   };
 
   render() {
+    console.log('STATE', this.state);
     let AreaSelect;
     let StateSelect;
 
@@ -160,9 +161,12 @@ class WizardAcquireNumber extends Component {
         </h3>
         <h1>Acquire a Phone Number</h1>
         <div className={"ui text"}>
-          <div className={"ui stripe segment aligned"} style={{ paddingTop: "3rem" }}>
+          <div
+            className={"ui stripe segment aligned"}
+            style={{ paddingTop: "3rem" }}
+          >
             <div style={{ paddingLeft: "2rem", paddingRight: "2rem" }}>
-              <p>Select an Area Code or State</p>
+              <p>Select an Area Code or State to see the available numbers</p>
               <div
                 className={"ui middle grid"}
                 style={{ paddingBottom: "3rem" }}
@@ -191,7 +195,9 @@ class WizardAcquireNumber extends Component {
                   <button
                     id="button"
                     className={"ui button large fluid"}
-                    onClick={() => {this.setState({ showNumbers: true });}}
+                    onClick={() => {
+                      this.setState({ showNumbers: true });
+                    }}
                   >
                     See available numbers
                   </button>
@@ -234,9 +240,11 @@ class WizardAcquireNumber extends Component {
                 </button>
               </div>
               <div className={"eight wide column"}>
-                <button className={"ui button large fluid"} id={"button"}>
-                  Associate an App
-                </button>
+                <AssociateApp
+                  selectedNumber={this.state.acquiredNumber}
+                  updateList={this.props.updateList}
+                  isModalStyle
+                />
               </div>
             </div>
           </div>
