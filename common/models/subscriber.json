@@ -1,6 +1,6 @@
 {
   "name": "subscriber",
-  "base": "PersistedModel",
+  "base": "User",
   "idInjection": true,
   "options": {
     "validateUpsert": true
@@ -9,14 +9,10 @@
     "id": {
       "type": "number"
     },
-    "email": {
-      "type": "string",
-      "required": true
-    },
-    "name": {
+    "first": {
       "type": "string"
     },
-    "pwd": {
+    "last": {
       "type": "string"
     },
     "status": {
@@ -34,38 +30,102 @@
     "my_number": {
       "type": "string"
     },
-    "third_party_connect": {
-      "type": "string"
-    },
-    "confirm_url": {
+    "social_id_provider": {
       "type": "string"
     }
   },
   "validations": [],
-  "relations": {},
-  "acls": [],
-  "methods": {
-    "login": {
-      "accepts": [
-        {
-          "arg": "email",
-          "type": "string"
-        },
-        {
-          "arg": "pwd",
-          "type": "string"
-        }
-      ],
-      "returns": {
-        "arg": "status",
-        "type": "string"
-      },
-      "http": {
-        "verb": "get",
-        "path": "/login"
-      }
+  "relations": {
+    "applications": {
+      "type": "hasMany",
+      "model": "application",
+      "foreignKey": "subscriber_id"
     },
+    "phoneNumbers": {
+      "type": "hasMany",
+      "model": "phone_number",
+      "foreignKey": "subscriber_id"
+    },
+    "dialogflows": {
+      "type": "hasMany",
+      "model": "dialogflow",
+      "foreignKey": "subscriber_id"
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "login"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "signup"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "verifyEmail"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "signupWithSocial"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "getMyNumber"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "getGithubAccessToken"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__get__phoneNumbers"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__get__applications"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__get__dialogflows"
+    }
+  ],
+  "methods": {
     "signup": {
+      "description": "Create a new instance of Subscriber using provided email and password, generating an email confirmation.",
       "accepts": [
         {
           "arg": "email",
@@ -86,6 +146,7 @@
       }
     },
     "verifyEmail": {
+      "description": "Update a Subscriber to active status based on email confirmation.",
       "accepts": [
         {
           "arg": "url",
@@ -101,71 +162,36 @@
         "verb": "post"
       }
     },
-    "getMyInfo": {
+    "getGithubAccessToken": {
+      "description": "Exchanges a github code for an access token that can be used to query the gituhub account.",
       "accepts": [
-        {
-          "arg": "email",
-          "type": "string"
-        }
+        {"arg": "code", "type": "string", "source": "query", "required": true}
       ],
-      "returns": {
-        "arg": "info",
-        "type": "string"
-      },
-      "http": {
-        "path": "/get-my-info",
-        "verb": "post"
-      }
+      "returns": {"arg": "access_token", "type": "string"},
+      "http": {"path": "/github_access_token", "verb": "get"}
     },
-    "addMyNumber": {
+    "signupWithSocial": {
+      "description": "Create a new instance of Subscriber using information from a social identity provider.",
       "accepts": [
         {
           "arg": "email",
-          "type": "string"
-        },
-        {
-          "arg": "number",
-          "type": "string"
-        }
-      ],
-      "returns": {
-        "arg": "status",
-        "type": "string"
-      },
-      "http": {
-        "path": "/add-my-number",
-        "verb": "post"
-      }
-    },
-    "getMyNumber": {
-      "accepts": [
-        {
-          "arg": "email",
-          "type": "string"
-        }
-      ],
-      "returns": {
-        "arg": "number",
-        "type": "string"
-      },
-      "http": {
-        "path": "/get-my-number",
-        "verb": "post"
-      }
-    },
-    "signupWithThirdParty": {
-      "accepts": [
-        {
-          "arg": "email",
-          "type": "string"
-        },
-        {
-          "arg": "name",
           "type": "string"
         },
         {
           "arg": "social",
           "type": "string"
+        },
+        {
+          "arg": "password",
+          "type": "string"
+        },
+        {
+          "arg": "first",
+          "type": "string"
+        },
+        {
+          "arg": "last",
+          "type": "string"
         }
       ],
       "returns": {
@@ -173,7 +199,7 @@
         "type": "string"
       },
       "http": {
-        "path": "/signup_with_third_party",
+        "path": "/signup_with_social",
         "verb": "post"
       }
     }

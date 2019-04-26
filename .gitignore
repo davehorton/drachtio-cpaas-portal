@@ -1,0 +1,7 @@
+node_modules
+*.log
+.vscode 
+
+cpaas_20181205_1319EST.sql
+
+local.json

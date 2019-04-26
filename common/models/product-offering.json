@@ -1,0 +1,26 @@
+{
+  "name": "product_offering",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "currency": {
+      "type": "string",
+      "required": true,
+      "default": "USD"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

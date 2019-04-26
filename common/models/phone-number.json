@@ -14,21 +14,35 @@
       "type": "string"
     },
     "is_shared": {
-      "type": "number"
+      "type": "boolean",
+      "default": false
     },
-    "subscriber_id": {
+    "application_id": {
       "type": "number"
     },
     "telecom_id": {
       "type": "number"
     },
-    "application_id": {
+    "subscriber_id": {
       "type": "number"
     }
   },
   "validations": [],
-  "relations": {},
-  "acls": [],
+  "relations": {
+    "telecom": {
+      "type": "belongsTo",
+      "model": "telecom",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    }
+  ],
   "methods": {
     "getAvailableNumbers": {
       "returns": {
