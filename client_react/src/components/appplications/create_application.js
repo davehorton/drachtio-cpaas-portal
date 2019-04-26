@@ -18,16 +18,16 @@ export class CreateApplication extends Component {
     this.setState({ selectedOption: option });
   };
 
-  onNameChange = (event) => {
-    this.setState({ appName: event.target.value})
-  }
+  onNameChange = event => {
+    this.setState({ appName: event.target.value });
+  };
 
-  onURLChange = (event) => {
-    this.setState({ url: event.target.value})
-  }
+  onURLChange = event => {
+    this.setState({ url: event.target.value });
+  };
 
   render() {
-    console.log('STATE', this.state);
+    console.log("STATE", this.state);
     const { selectedOption } = this.state;
     return (
       <>
@@ -40,10 +40,14 @@ export class CreateApplication extends Component {
             className="ui left aligned container"
             style={{ fontSize: "20px", marginBottom: "20px" }}
           >
-            Name you application
+            Name your application
           </div>
           <div className="ui input" style={{ width: "95%" }}>
-            <input type="text" placeholder="My App...." onChange={this.onNameChange}/>
+            <input
+              type="text"
+              placeholder="My App...."
+              onChange={this.onNameChange}
+            />
           </div>
         </div>
         <div className={"ui stripe segment aligned"} style={style}>
@@ -136,7 +140,11 @@ export class CreateApplication extends Component {
             Web Callback URL
           </div>
           <div className="ui input" style={{ width: "95%" }}>
-            <input type="text" placeholder="www.myurl.com" onChange={this.onURLChange}/>
+            <input
+              type="text"
+              placeholder="www.myurl.com"
+              onChange={this.onURLChange}
+            />
           </div>
         </div>
         <div className={"ui stripe segment aligned"} style={{ height: "64px" }}>
@@ -156,8 +164,7 @@ export class CreateApplication extends Component {
 
 export const buttonStyle = {
   position: "absolute",
-  left: "85%",
-  right: "30.42%",
+  right: "2%",
   top: "calc(50% - 36px/2)",
   fontFamily: "Work Sans",
   fontSize: "16px",
@@ -173,7 +180,8 @@ const style = {
 
 const appStyle = {
   height: "280px",
-  width: "261px"
+  width: "261px",
+  borderWidth: "2px"
 };
 
 const selectedAppStyle = {
@@ -181,7 +189,8 @@ const selectedAppStyle = {
   width: "261px",
   color: "#d91c5c",
   borderColor: "#d91c5c",
-  borderRadius: "8px"
+  borderRadius: "2px",
+  borderWidth: "2px"
 };
 
 const textStyle = {
@@ -200,11 +209,11 @@ const titleStyle = {
 };
 
 const callbackStyle = {
-  margin: "20px 15px 10px 15px",
+  margin: "35px 15px 10px 15px",
   height: "36px",
   width: "58px"
 };
 
 const dialogStyle = {
-  margin: "20px 15px 0px 15px"
+  margin: "25px 15px 0px 15px"
 };

@@ -78,6 +78,7 @@ class PhoneNumbers extends Component {
           <AcquireNumber
             numberExist={bNumberExist}
             onRequestAcquire={this.startAcquireNumber}
+            updateList={this.updateList}
           />
         </div>
       );
@@ -92,6 +93,7 @@ class PhoneNumbers extends Component {
             this.setState({ showAcquireWizard: false });
             window.location.reload();
           }}
+          updateList={this.updateList}
         />
       );
     }

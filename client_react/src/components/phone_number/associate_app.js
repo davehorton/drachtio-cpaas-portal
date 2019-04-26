@@ -1,12 +1,10 @@
 import React from "react";
 import axios from "axios";
 
+import { AppItem } from "./app_item";
+
 const serverApiUrl = "http://localhost:3000/api";
 const $ = window.$;
-
-const styleButton = {
-  margin: "1rem"
-};
 
 export class AssociateApp extends React.Component {
   constructor(props) {
@@ -18,6 +16,29 @@ export class AssociateApp extends React.Component {
 
   onAssociateApp = () => {
     $(".ui.floating.dropdown").dropdown("show");
+    if (this.props.isModalStyle) {
+      this.getMyNumbers();
+    }
+  };
+
+  getMyNumbers = () => {
+    axios
+      .post(
+        serverApiUrl + "/phone_numbers/get-my-numbers",
+        {
+          email: sessionStorage.getItem("cpaas-email")
+        },
+        {
+          headers: {
+            Authorization: sessionStorage.getItem("cpaas-access-token")
+          }
+        }
+      )
+      .then(response => {
+        let data = response.data.list;
+        const number = data.find(num => num.e164 === this.props.selectedNumber);
+        this.setState({ number });
+      });
   };
 
   getMyApps = () => {
@@ -32,17 +53,19 @@ export class AssociateApp extends React.Component {
         }
       )
       .then(response => {
-        const data = response.data;
-        console.log("My Apps", data);
-        if (data && data.length !== 0) {
-          this.setState({ myApps: data });
+        const myApps = response.data;
+        console.log("My Apps", myApps);
+        if (myApps && myApps.length !== 0) {
+          this.setState({ myApps });
         }
       });
   };
 
   associateAppWithNumber = id => {
-    console.log("props", this.props);
-    const num = this.props.selectedNumber;
+    console.log("props", this.props, "STATE", this.state);
+    const num = this.props.isModalStyle
+      ? this.state.number
+      : this.props.selectedNumber;
     axios
       .patch(
         `${serverApiUrl}/phone_numbers`,
@@ -64,12 +87,7 @@ export class AssociateApp extends React.Component {
       )
       .then(response => {
         const data = response.data;
-        console.log("My Apps", data);
-        // $('.ui.dropdown').dropdown({
-        //   onAdd: () => {
-        //     $('.dropdown').blur();
-        //   }
-        // });
+        console.log("phone numbers", data);
       });
     this.props.updateList();
   };
@@ -79,36 +97,60 @@ export class AssociateApp extends React.Component {
   }
 
   render() {
-    console.log("state", this.state, "PROPS", this.props);
-    const appOptions = this.state.myApps.map(app => {
-      return (
-        <div
-          className="item"
-          style={{ width: "170px" }}
-          onClick={() => this.associateAppWithNumber(app.id)}
-          key={app.id}
-        >
-          {app.name}
-        </div>
-      );
-    });
+    const { isModalStyle } = this.props;
+    const appOptions = this.state.myApps.length ? (
+      this.state.myApps.map(app => {
+        return (
+          <div
+            className="item"
+            style={{
+              width: "320px",
+              height: app.dialogflow_id && app.callback_url ? "120px" : "80px"
+            }}
+            onClick={() => this.associateAppWithNumber(app.id)}
+            key={app.id}
+          >
+            <span style={appName}>{app.name}</span>
+            <br />
+            <AppItem app={app} />
+          </div>
+        );
+      })
+    ) : (
+      <div className="item" style={{ width: "280px" }}>
+        You have no apps
+      </div>
+    );
 
     return (
       <button
-        className={"ui dropdown button right floated large"}
-        style={styleButton}
+        className={
+          isModalStyle
+            ? "ui button large fluid"
+            : "ui dropdown button right floated large"
+        }
+        style={isModalStyle ? {} : styleButton}
         id={"button"}
         onClick={this.onAssociateApp}
         disabled={this.props.disabled}
       >
         Associate an App
-        <div className="ui floating right floated dropdown" style={menuStyles}>
+        <div
+          className="ui floating right floated dropdown"
+          style={isModalStyle ? modalStyles : menuStyles}
+        >
           <div className="menu">{appOptions}</div>
         </div>
       </button>
     );
   }
 }
+
+const styleButton = {
+  margin: "1em",
+  top: "10%",
+  bottom: "10%"
+};
 
 const menuStyles = {
   position: "absolute",
@@ -118,7 +160,25 @@ const menuStyles = {
   bottom: "38.2%",
   marginTop: "20px",
   boxShadow: "0px 8px 8px rgba(0, 0, 0, 0.12), 0px 0px 8px rgba(0, 0, 0, 0.12)",
-  borderRadius: "4px",
-  zIndex: "10",
-  opacity: "1.0"
+  borderRadius: "4px"
+};
+
+const modalStyles = {
+  position: "absolute",
+  left: "4%",
+  fontFamily: "Working Sans",
+  top: "40%",
+  bottom: "38.2%",
+  marginTop: "20px",
+  boxShadow: "0px 8px 8px rgba(0, 0, 0, 0.12), 0px 0px 8px rgba(0, 0, 0, 0.12)",
+  borderRadius: "4px"
+};
+
+const appName = {
+  fontFamily: "Work Sans",
+  fontStyle: "normal",
+  fontWeight: "600",
+  lineHeight: "24px",
+  fontSize: "16px",
+  color: "#565656"
 };

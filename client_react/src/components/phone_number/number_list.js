@@ -11,7 +11,7 @@ const styleNumList = {
 };
 
 const styleButton = {
-  margin: "1rem"
+  margin: "1em"
 };
 
 class NumberList extends Component {
@@ -32,6 +32,7 @@ class NumberList extends Component {
   completeNumberList = () => {
     let list = this.props.list;
     let numberList = [];
+    console.log('list', list)
     for (let i in list) {
       let item = {};
       item.id = list[i].id;
@@ -171,7 +172,7 @@ class NumberList extends Component {
                       <input
                         type="checkbox"
                         checked={this.state.selectedAll}
-                        onClick={this.selectAll}
+                        onChange={this.selectAll}
                       />
                       <span className={"checkmark"} />
                       <label

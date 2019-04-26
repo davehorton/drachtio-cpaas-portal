@@ -23,7 +23,7 @@ class NumberItem extends Component {
           <div className={"five wide column"}>
             <div className={"inline field"}>
               <label className={"boxcontainer"}>
-                <input type="checkbox" checked={this.state.data.checked} onClick={this.changeCheck}/>
+                <input type="checkbox" checked={this.state.data.checked} onChange={this.changeCheck}/>
                 <span className={"checkmark"}></span>
                 <p className="phonenumber">{this.state.data.number}</p>
             </label>

@@ -676,3 +676,12 @@ h1 {
   z-index: 0;
   opacity: 1.0;
 }
+
+.see-url {
+  color: #d91c5c;
+  font-style: normal;
+}
+
+.see-url:hover {
+  color: #d91c5c;
+}
